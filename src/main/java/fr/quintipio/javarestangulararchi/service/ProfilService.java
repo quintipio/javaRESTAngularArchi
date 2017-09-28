@@ -15,4 +15,6 @@ public interface ProfilService {
     void update(Profil profil);
 
     void delete(Long id);
+
+    List<Profil> searchByLibelle(String libelle);
 }

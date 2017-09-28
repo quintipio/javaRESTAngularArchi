@@ -40,4 +40,9 @@ public class ProfilServiceImpl implements ProfilService {
     public void delete(Long id) {
         profilRepository.delete(id);
     }
+
+    @Override
+    public List<Profil> searchByLibelle(String libelle) {
+       return profilRepository.findByLibelleContaining(libelle);
+    }
 }

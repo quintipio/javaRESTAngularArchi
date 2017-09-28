@@ -1,0 +1,3 @@
+INSERT INTO `javarestangularapp`.`profil` (`id`, `libelle`) VALUES (NULL, 'administrateur'), (NULL, 'utilisateur');
+INSERT INTO `javarestangularapp`.`utilisateur` (`id`, `email`, `motdepasse`, `nom`, `prenom`, `sso`) VALUES (NULL, 'qdelfour@gmail.com', 'mdp', 'delfour', 'quentin', 'quintipio');
+INSERT INTO `javarestangularapp`.`utilisateur_profil` (`utilisateur_id`, `profil_id`) VALUES ('1', '1'), ('1', '2');

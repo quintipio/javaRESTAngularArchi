@@ -10,7 +10,6 @@ import {Router} from "@angular/router";
 export class ListeProfilComponent implements OnInit {
 
   profils: Profil[];
-  selectedProfil: Profil;
 
   constructor(
     private router:Router,
@@ -21,7 +20,20 @@ export class ListeProfilComponent implements OnInit {
   }
 
   getProfils() {
-    this.profilService.getProfils().subscribe(data => this.profils = data);
+    this.profilService.getProfils().then(profilsRes => this.profils = profilsRes);
+  }
+
+
+  delete(profil:Profil) {
+    this.profilService.delete(profil.id).then(() => this.getProfils());
+  }
+
+  add() {
+    this.router.navigate(['profils/edit']);
+  }
+
+  edit(profil: Profil) {
+    this.router.navigate(['profils/edit'], {queryParams : {id : profil.id}});
   }
 
 }

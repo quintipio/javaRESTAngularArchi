@@ -1,0 +1,10 @@
+<div id="search-component">
+  <label for="search-box">Rechercher :</label>
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+  <div>
+    <div *ngFor="let profil of profils"
+         (click)="gotoDetail(profil)" class="search-result" >
+      {{profil.libelle}}
+    </div>
+  </div>
+</div>

@@ -1,6 +1,10 @@
 <h2>Gestion des profils</h2>
+<profil-search></profil-search>
 <ul>
   <li *ngFor="let profil of profils">
     <span >{{profil.id}}</span> {{profil.libelle}}
+    <button (click)="edit(profil);">Modifier</button>
+    <button (click)="delete(profil); $event.stopPropagation()">x</button>
   </li>
 </ul>
+<button (click)="add()">Ajouter</button>

@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import {ProfilService} from "./service/ProfilService";
 import { AppComponent } from './app.component';
 import {ListeProfilComponent} from "./component/profil/listeProfil.component";
+import {EditProfilComponent} from "./component/profil/editProfil.component";
+import {SearchprofilComponent} from "./component/profil/searchprofil.component";
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import {ListeProfilComponent} from "./component/profil/listeProfil.component";
   ],
   declarations: [
     AppComponent,
-    ListeProfilComponent
+    ListeProfilComponent,
+    EditProfilComponent,
+    SearchprofilComponent
   ],
   providers: [ProfilService],
   bootstrap: [AppComponent]
