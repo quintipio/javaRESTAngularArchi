@@ -1,0 +1,26 @@
+<article>
+  <div class="row">
+    <div class="col-sm-12">
+      <div *ngIf="isModif">
+        <h2>Détails de {{profil.libelle}}</h2>
+      </div>
+      <div *ngIf="!isModif">
+        <h2>Créer un profil</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="inputLibelleProfil" class="col-xs-3 col-form-label mr-2">Libellé : </label>
+    <div class="col-xs-9">
+      <input id="inputLibelleProfil" name="inputLibelleProfil" class="form-control" [(ngModel)]="profil.libelle" placeholder="Nom du profil" required />
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="offset-xs-3 col-xs-9">
+      <button (click)="goBack()" class="btn btn-secondary">Retour</button>
+      <button (click)="save()" class="btn">Sauvegarder</button>
+    </div>
+  </div>
+</article>

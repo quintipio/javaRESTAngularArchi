@@ -1,7 +1,0 @@
-<div *ngIf="profil.libelle">
-  <h2>Détails de {{profil.libelle}}</h2>
-</div>
-<label for="inputLibelleProfil">Libellé : </label>
-<input id="inputLibelleProfil" name="inputLibelleProfil" type="text" [(ngModel)]="profil.libelle" placeholder="Nom du profil" required />
-<button (click)="goBack()">Retour</button>
-<button (click)="save()">Sauvegarder</button>

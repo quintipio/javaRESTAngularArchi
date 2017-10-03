@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location }                 from '@angular/common';
-import { Profil} from "../../model/Profil";
-import {ProfilService} from "../../service/ProfilService";
+import { Profil} from "../../../model/Profil";
+import {ProfilService} from "../../../service/ProfilService";
 
 @Component({
   selector: 'edit-profil',

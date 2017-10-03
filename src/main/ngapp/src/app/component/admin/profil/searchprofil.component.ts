@@ -8,8 +8,8 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
-import {ProfilService} from "../../service/ProfilService";
-import {Profil} from "../../model/Profil";
+import {ProfilService} from "../../../service/ProfilService";
+import {Profil} from "../../../model/Profil";
 
 @Component({
   selector:'profil-search',
