@@ -8,7 +8,9 @@ public interface UserService {
 
     Utilisateur findById(Long id);
 
-    Utilisateur findBySso(String name);
+    List<Utilisateur> findBySsoLike(String name);
+
+    Utilisateur findBySso(String sso);
 
     void saveUser(Utilisateur utilisateur);
 

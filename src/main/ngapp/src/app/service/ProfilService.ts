@@ -1,18 +1,17 @@
 import { Injectable }    from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
+import { Headers, Response } from '@angular/http';
 import {Profil} from "../model/Profil";
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
+import {AuthHttp} from 'angular2-jwt';
 
 @Injectable()
 export class ProfilService {
-  private profilurl = 'http://localhost:8080/profil';
+  private profilurl = 'admin/profil';
   private headers = new Headers({'Content-Type': 'application/json'});
 
-/*,'Access-Control-Allow-Origin':'http://localhost:8080','Access-Control-Allow-Methods':'GET PUT POST DELETE'*/
-
-  constructor(private http: Http) { }
+  constructor(private http: AuthHttp) { }
 
   getProfils(): Promise<Profil[]> {
     return this.http.get(this.profilurl)

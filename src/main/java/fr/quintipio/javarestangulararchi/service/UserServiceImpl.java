@@ -22,8 +22,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Utilisateur findBySso(String sso) {
+    public List<Utilisateur> findBySsoLike(String sso) {
         return utilisateurRepository.findBySsoLike(sso);
+    }
+
+    @Override
+    public Utilisateur findBySso(String sso) {
+        return utilisateurRepository.findBySso(sso);
     }
 
     @Override

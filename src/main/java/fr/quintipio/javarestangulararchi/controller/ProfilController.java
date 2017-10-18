@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
+@RequestMapping("/admin")
+//@PreAuthorize("hasAuthority('ADMIN_USER')")
 public class ProfilController {
 
     @Autowired
@@ -49,19 +51,18 @@ public class ProfilController {
 
     @DeleteMapping(value = "/profil/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
-        System.out.println("ok : "+id);
         profilService.delete(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping(value = "/profil")
-    public ResponseEntity<Profil> createUser(@RequestBody Profil profil) {
+    public ResponseEntity<Profil> createProfil(@RequestBody Profil profil) {
         this.profilService.save(profil);
         return ResponseEntity.ok(profil);
     }
 
     @PutMapping(value = "/profil")
-    public ResponseEntity<Profil> updateUser(@RequestBody Profil profil) {
+    public ResponseEntity<Profil> updateprofil(@RequestBody Profil profil) {
         this.profilService.update(profil);
         return ResponseEntity.ok(profil);
     }

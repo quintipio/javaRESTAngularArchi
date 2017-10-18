@@ -1,0 +1,9 @@
+
+<div *ngIf="!isConnected">
+  <h1>Veuillez vous identifier</h1>
+<login></login>
+</div>
+<div *ngIf="isConnected">
+  <h1>Vous êtes maintenant connecté</h1>
+  <button type="button" class="btn btn-secondary btn-lg" (click)="logout()" *ngIf="isConnected">Déconnexion</button>
+</div>

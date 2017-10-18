@@ -38,9 +38,6 @@ public class Utilisateur {
     @Length(min= 8 ,max = 255)
     String motDePasse;
 
-    @Transient
-    transient String motDePasseConfirmation;
-
     @NotEmpty
     @Column(name="prenom", nullable=false)
     @NotNull
@@ -57,7 +54,7 @@ public class Utilisateur {
     private String nom;
 
     @NotEmpty
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "UTILISATEUR_PROFIL",
             joinColumns = { @JoinColumn(name = "UTILISATEUR_ID") },
             inverseJoinColumns = { @JoinColumn(name = "PROFIL_ID") })
@@ -99,14 +96,6 @@ public class Utilisateur {
 
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
-    }
-
-    public String getMotDePasseConfirmation() {
-        return motDePasseConfirmation;
-    }
-
-    public void setMotDePasseConfirmation(String motDePasseConfirmation) {
-        this.motDePasseConfirmation = motDePasseConfirmation;
     }
 
     public String getPrenom() {
