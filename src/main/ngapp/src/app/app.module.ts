@@ -10,7 +10,6 @@ import { AppComponent } from './app.component';
 import {ListeProfilComponent} from "./component/admin/profil/listeProfil.component";
 import {EditProfilComponent} from "./component/admin/profil/editProfil.component";
 import {SearchprofilComponent} from "./component/admin/profil/searchprofil.component";
-<<<<<<< HEAD
 import {PageUtilisateurComponent} from "./component/standard/pageUtilisateur.component";
 import {PageAccueilComponent} from "./component/public/pageAccueil.component";
 import {PageAdminComponent} from "./component/admin/pageAdmin.component";
@@ -36,11 +35,6 @@ export function authHttpServiceFactory(http: Http) {
     tokenGetter: (() => localStorage.getItem(TOKEN_NAME))
   }), http);
 }
-=======
-import {PageUtilisateurComponent} from "./component/accueil/pageUtilisateur.component";
-import {PageAccueilComponent} from "./component/accueil/pageAccueil.component";
-import {PageAdminComponent} from "./component/accueil/pageAdmin.component";
->>>>>>> 73519aefe53d99a6077033c5a32ad238e8dc729f
 
 @NgModule({
   imports: [
@@ -51,10 +45,7 @@ import {PageAdminComponent} from "./component/accueil/pageAdmin.component";
   ],
   declarations: [
     AppComponent,
-<<<<<<< HEAD
     ErrorConnexionComponent,
-=======
->>>>>>> 73519aefe53d99a6077033c5a32ad238e8dc729f
 
     PageAccueilComponent,
     PageUtilisateurComponent,
