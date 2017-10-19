@@ -12,9 +12,9 @@ public interface UserService {
 
     Utilisateur findBySso(String sso);
 
-    void saveUser(Utilisateur utilisateur);
+    Utilisateur saveUser(Utilisateur utilisateur);
 
-    void updateUser(Utilisateur utilisateur);
+    Utilisateur updateUser(Utilisateur utilisateur);
 
     void deleteUser(Long id);
 

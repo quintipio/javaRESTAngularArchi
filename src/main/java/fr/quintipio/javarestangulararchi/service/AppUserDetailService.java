@@ -33,8 +33,10 @@ public class AppUserDetailService implements UserDetailsService  {
         });
 
         UserDetails userDetails = new org.springframework.security.core.userdetails.
-                User(user.getSso(), user.getMotDePasse(), authorities);
+                User(user.getSso(), user.getMotDePasse(),user.getActive(),true,true,true, authorities);
 
         return userDetails;
     }
+
+
 }

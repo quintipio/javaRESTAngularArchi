@@ -8,4 +8,5 @@ export class User {
   nom:string;
   prenom:string;
   profils:Profil[];
+  active:boolean;
 }

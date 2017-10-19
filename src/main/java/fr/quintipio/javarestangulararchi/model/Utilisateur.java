@@ -23,6 +23,10 @@ public class Utilisateur {
     @Column(name="sso", unique=true, nullable=false)
     String sso;
 
+    @NotNull
+    @Column(name="active",nullable = false)
+    Boolean isActive;
+
     @NotEmpty
     @NotNull
     @Column(name="email",nullable = false)
@@ -122,16 +126,25 @@ public class Utilisateur {
         this.userProfiles = userProfiles;
     }
 
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-    Utilisateur that = (Utilisateur) o;
+        Utilisateur that = (Utilisateur) o;
 
         if (!id.equals(that.id)) return false;
         return sso.equals(that.sso);
-}
+    }
 
     @Override
     public int hashCode() {

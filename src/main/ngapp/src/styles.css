@@ -8,6 +8,10 @@
   width: 100%;
 }
 
+.decale {
+  margin-left:10px;
+}
+
 /**HEADER**/
 header {
   height:120px;

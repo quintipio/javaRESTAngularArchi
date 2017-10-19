@@ -9,6 +9,7 @@ import {PageAdminComponent} from "./component/admin/pageAdmin.component";
 import {AuthGuard} from "./guards/auth-guard.service";
 import {ErrorConnexionComponent} from "./commons/errorConnexion.component";
 import {AdminAuthGuard} from "./guards/admin-auth-guard.service";
+import {ModifCompteComponent} from './component/standard/modifCompte.component';
 
 const routes: Routes = [
   { path: 'erreurConnexion',component: ErrorConnexionComponent },
@@ -17,8 +18,9 @@ const routes: Routes = [
   { path: 'accueil',  component: PageAccueilComponent},
 
   { path: 'pageUtilisateur',  component: PageUtilisateurComponent, canActivate: [AuthGuard]},
-  { path: 'pageAdmin',  component: PageAdminComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+  { path: 'monCompte',  component: ModifCompteComponent, canActivate: [AuthGuard]},
 
+  { path: 'pageAdmin',  component: PageAdminComponent, canActivate: [AuthGuard, AdminAuthGuard]},
   { path: 'profils',  component: ListeProfilComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'profils/edit',  component: EditProfilComponent, canActivate: [AuthGuard, AdminAuthGuard] },
 ];

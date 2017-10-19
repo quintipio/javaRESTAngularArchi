@@ -8,9 +8,9 @@
           <ul class="navbar-nav" >
 
             <li class="nav-item dropdown mr-auto" *ngIf="isConnected">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="subMenuUser" role="button" aria-haspopup="true" aria-expanded="false">Bonjour {{userLogin}}</a>
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="subMenuUser" role="button" aria-haspopup="true" aria-expanded="false"><b>Bonjour {{userLogin}}</b></a>
               <div class="dropdown-menu" aria-labelledby="subMenuUser">
-                <a class="nav-link" routerLink="/"  routerLinkActive="active">Mon compte</a>
+                <a class="nav-link" routerLink="/monCompte"  routerLinkActive="active">Mon compte</a>
                 <button type="button" class="btn btn-secondary btn-lg" (click)="logout()" *ngIf="isConnected">Déconnexion</button>
               </div>
             </li>

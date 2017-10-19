@@ -1,0 +1,62 @@
+<article>
+
+  <h2 class="center-text">Vos informations</h2>
+
+  <div class="form-group row decale">
+    <label for="inputLibelleNom" class="col-xs-3 col-form-label mr-2">Nom : </label>
+    <div class="col-xs-9">
+      <input id="inputLibelleNom" name="inputLibelleNom" class="form-control" [(ngModel)]="utilisateur.nom" placeholder="nom de famille" required />
+    </div>
+  </div>
+
+  <div class="form-group row decale">
+    <label for="inputLibellePrenom" class="col-xs-3 col-form-label mr-2">Prénom : </label>
+    <div class="col-xs-9">
+      <input id="inputLibellePrenom" name="inputLibellePrenom" class="form-control" [(ngModel)]="utilisateur.prenom" placeholder="Prénom usuel" required />
+    </div>
+  </div>
+
+  <div class="form-group row decale">
+    <label for="inputLibelleMail" class="col-xs-3 col-form-label mr-2">Email : </label>
+    <div class="col-xs-9">
+      <input id="inputLibelleMail" name="inputLibelleMail" class="form-control" [(ngModel)]="utilisateur.email" type="email" placeholder="adresse mail valide" required />
+    </div>
+  </div>
+
+  <div class="form-group row center-text">
+    <div class="offset-xs-3 col-xs-9">
+      <button (click)="saveInfoProfil()" class="btn">Mettre à jour</button>
+    </div>
+  </div>
+</article>
+
+<article>
+  <h2 class="center-text">Changer votre mot de passe</h2>
+
+  <div class="form-group row decale">
+    <label for="inputOldPass" class="col-xs-3 col-form-label mr-2">Ancien mot de passe </label>
+    <div class="col-xs-9">
+      <input id="inputOldPass" name="inputOldPass" class="form-control" [(ngModel)]="oldPass" placeholder="Votre ancien mot de passe" required type="password" />
+    </div>
+  </div>
+
+  <div class="form-group row decale">
+    <label for="inputNewPass" class="col-xs-3 col-form-label mr-2">Nouveau mot de passe </label>
+    <div class="col-xs-9">
+      <input id="inputNewPass" name="inputNewPass" class="form-control" [(ngModel)]="newPass" placeholder="6 caractères minimum" required type="password" />
+    </div>
+  </div>
+
+  <div class="form-group row decale">
+    <label for="newPassConfirm" class="col-xs-3 col-form-label mr-2">Confirmation de votre mot de passe </label>
+    <div class="col-xs-9">
+      <input id="newPassConfirm" name="newPassConfirm" class="form-control" [(ngModel)]="newPassconfrm" placeholder="le nouveau mot de passe" required type="password" />
+    </div>
+  </div>
+
+  <div class="form-group row center-text">
+    <div class="offset-xs-3 col-xs-9">
+      <button (click)="savePassword()" class="btn">Changer le mot de passe</button>
+    </div>
+  </div>
+</article>

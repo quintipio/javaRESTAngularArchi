@@ -24,6 +24,7 @@ import {PublicService} from "./service/PublicService";
 import {AdminService} from "./service/AdminService";
 import {StandardService} from "./service/StandardService";
 import {ErrorConnexionComponent} from "./commons/errorConnexion.component";
+import {ModifCompteComponent} from './component/standard/modifCompte.component';
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -48,13 +49,16 @@ export function authHttpServiceFactory(http: Http) {
     ErrorConnexionComponent,
 
     PageAccueilComponent,
-    PageUtilisateurComponent,
-    PageAdminComponent,
+    LoginComponent,
 
+    PageUtilisateurComponent,
+    ModifCompteComponent,
+
+    PageAdminComponent,
     ListeProfilComponent,
     EditProfilComponent,
     SearchprofilComponent,
-    LoginComponent
+
   ],
   providers: [{provide: AuthHttp, useFactory: authHttpServiceFactory, deps: [Http]},
     ProfilService,
