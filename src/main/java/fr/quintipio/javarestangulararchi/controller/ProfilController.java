@@ -2,7 +2,10 @@ package fr.quintipio.javarestangulararchi.controller;
 
 
 import fr.quintipio.javarestangulararchi.model.Profil;
+import fr.quintipio.javarestangulararchi.service.MailService;
 import fr.quintipio.javarestangulararchi.service.ProfilService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +19,8 @@ import java.util.List;
 @RequestMapping("/admin")
 //@PreAuthorize("hasAuthority('ADMIN_USER')")
 public class ProfilController {
+
+    private final Logger log = LoggerFactory.getLogger(ProfilController.class);
 
     @Autowired
     private ProfilService profilService;
@@ -51,6 +56,7 @@ public class ProfilController {
 
     @DeleteMapping(value = "/profil/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
+        log.info("Effacement du profil d'id"+id);
         profilService.delete(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -58,12 +64,14 @@ public class ProfilController {
     @PostMapping(value = "/profil")
     public ResponseEntity<Profil> createProfil(@RequestBody Profil profil) {
         this.profilService.save(profil);
+        log.info("Crétion du profil"+profil.getLibelle()+" id:"+profil.getId());
         return ResponseEntity.ok(profil);
     }
 
     @PutMapping(value = "/profil")
     public ResponseEntity<Profil> updateprofil(@RequestBody Profil profil) {
         this.profilService.update(profil);
+        log.info("Mise à jour du profil"+profil.getLibelle()+" id:"+profil.getId());
         return ResponseEntity.ok(profil);
     }
 

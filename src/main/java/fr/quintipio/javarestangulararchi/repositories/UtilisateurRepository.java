@@ -14,4 +14,8 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
 
     Utilisateur findBySso(String sso);
 
+    Integer countUtilisateurByLink(String link);
+
+    Utilisateur findUtilisateurByLink(String link);
+
 }

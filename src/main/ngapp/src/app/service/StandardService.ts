@@ -37,6 +37,12 @@ export class StandardService {
     return true;
   }
 
+  deleteCompte() {
+    this.http.delete(this.publicurl+"/supprimerCompte").toPromise()
+      .then(res => res.text())
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }

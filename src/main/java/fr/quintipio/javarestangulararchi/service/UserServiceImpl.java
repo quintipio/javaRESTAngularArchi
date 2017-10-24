@@ -50,4 +50,17 @@ public class UserServiceImpl implements UserService {
     public List<Utilisateur> findAll() {
         return utilisateurRepository.findAll();
     }
+
+    @Override
+    public Boolean linkAlreadyExist(String link) {
+        Integer res = utilisateurRepository.countUtilisateurByLink(link);
+        return res > 0;
+    }
+
+    @Override
+    public Utilisateur findByLink(String link) {
+        return utilisateurRepository.findUtilisateurByLink(link);
+    }
+
+
 }

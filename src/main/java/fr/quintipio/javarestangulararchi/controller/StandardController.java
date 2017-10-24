@@ -3,6 +3,8 @@ package fr.quintipio.javarestangulararchi.controller;
 import fr.quintipio.javarestangulararchi.model.Utilisateur;
 import fr.quintipio.javarestangulararchi.service.UserService;
 import fr.quintipio.javarestangulararchi.utils.SecurityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.Optional;
 //@PreAuthorize("hasAuthority('ADMIN_USER') or hasAuthority('STANDARD_USER')")
 public class StandardController {
 
+    private final Logger log = LoggerFactory.getLogger(StandardController.class);
 
     @Autowired
     private UserService userService;
@@ -54,9 +57,11 @@ public class StandardController {
             userToUpdate.setPrenom(user.getPrenom());
             Utilisateur userupdate = userService.updateUser(userToUpdate);
             if(userupdate != null) {
+                log.info(user+" met à jour ses informations personnelles");
                 return ResponseEntity.ok(userupdate);
             }
         }
+        log.warn("echec de mises à jour des informations personnelles de "+sso);
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -69,10 +74,22 @@ public class StandardController {
             if(passwordEncoder.matches(oldPass,user.getMotDePasse())) {
                 user.setMotDePasse(passwordEncoder.encode(newPass));
                 userService.updateUser(user);
+                log.info(user+" met à jour son mot de passe");
                 return ResponseEntity.ok("ok");
             }
         }
+        log.warn("echec de mises à jour du mot de passe de "+sso);
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @RequestMapping(value = "/supprimerCompte", method = RequestMethod.DELETE)
+    public ResponseEntity deleteCompte() {
+        String sso = SecurityUtils.getCurrentUserLogin();
+        Utilisateur user = userService.findBySso(sso);
+        if(user != null) {
+            userService.deleteUser(user.getId());
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 

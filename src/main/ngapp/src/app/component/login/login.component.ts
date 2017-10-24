@@ -47,6 +47,10 @@ export class LoginComponent implements OnInit {
       );
   }
 
+  forgetMdp() {
+    this.router.navigate(['/demandereinitmdp']);
+  }
+
   private navigateAfterSuccess() {
     if (this.redirectUrl) {
       this.router.navigateByUrl(this.redirectUrl);

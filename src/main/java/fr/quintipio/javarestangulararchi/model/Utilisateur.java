@@ -20,8 +20,11 @@ public class Utilisateur {
 
     @NotNull
     @NotEmpty
-    @Column(name="sso", unique=true, nullable=false)
     String sso;
+
+
+    @Column(name="link", unique=true, nullable=true)
+    String link;
 
     @NotNull
     @Column(name="active",nullable = false)
@@ -127,6 +130,15 @@ public class Utilisateur {
     }
 
 
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+
     public Boolean getActive() {
         return isActive;
     }
@@ -156,7 +168,15 @@ public class Utilisateur {
     @Override
     public String toString() {
         return "Utilisateur{" +
-                "sso='" + sso + '\'' +
+                "id=" + id +
+                ", sso='" + sso + '\'' +
+                ", link='" + link + '\'' +
+                ", isActive=" + isActive +
+                ", email='" + email + '\'' +
+                ", motDePasse='" + motDePasse + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", nom='" + nom + '\'' +
+                ", userProfiles=" + userProfiles +
                 '}';
     }
 }

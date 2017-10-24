@@ -27,6 +27,10 @@ public class AppUserDetailService implements UserDetailsService  {
             throw new UsernameNotFoundException(String.format("Utilisateur inconnu", s));
         }
 
+        if(!user.getActive()) {
+            throw new UsernameNotFoundException(String.format("Utilisateur désactivé", s));
+        }
+
         List<GrantedAuthority> authorities = new ArrayList<>();
         user.getUserProfiles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getLibelle()));

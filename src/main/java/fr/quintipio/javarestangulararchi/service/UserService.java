@@ -19,4 +19,9 @@ public interface UserService {
     void deleteUser(Long id);
 
     List<Utilisateur> findAll();
+
+    Boolean linkAlreadyExist(String link);
+
+    Utilisateur findByLink(String link);
+
 }

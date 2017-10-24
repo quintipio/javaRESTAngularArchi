@@ -25,6 +25,9 @@ import {AdminService} from "./service/AdminService";
 import {StandardService} from "./service/StandardService";
 import {ErrorConnexionComponent} from "./commons/errorConnexion.component";
 import {ModifCompteComponent} from './component/standard/modifCompte.component';
+import {PageDemandeReinitMdpComponent} from './component/public/pageDemandeReinitmdp.component';
+import {PageReinitMdpComponent} from './component/public/pageReinitMdp.component';
+import {PageActivationCompteComponent} from './component/public/pageActivationCompte.component';
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -50,6 +53,9 @@ export function authHttpServiceFactory(http: Http) {
 
     PageAccueilComponent,
     LoginComponent,
+    PageDemandeReinitMdpComponent,
+    PageReinitMdpComponent,
+    PageActivationCompteComponent,
 
     PageUtilisateurComponent,
     ModifCompteComponent,

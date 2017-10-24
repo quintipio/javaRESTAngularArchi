@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {StandardService} from '../../service/StandardService';
 import {User} from '../../model/User';
+import {UserService} from '../../service/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector:'modif-compte',
@@ -14,7 +16,7 @@ export class ModifCompteComponent implements OnInit{
   newPass:string;
   newPassconfrm:string;
 
-  constructor(private standardService : StandardService) {}
+  constructor(private standardService : StandardService, private userService : UserService, private router : Router) {}
 
   ngOnInit(): void {
     this.standardService.getData().subscribe(res => this.utilisateur = res);
@@ -26,5 +28,11 @@ export class ModifCompteComponent implements OnInit{
 
   savePassword(): void {
     this.standardService.updatePassword(this.oldPass,this.newPass);
+  }
+
+  supprimerCompte(): void {
+    this.standardService.deleteCompte();
+    this.userService.logout();
+    this.router.navigate(['/']);
   }
 }

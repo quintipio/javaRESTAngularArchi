@@ -19,6 +19,10 @@ export class AppComponent {
     this.router.navigate(['/']);
   }
 
+  goToConnect() {
+    this.router.navigate(['/erreurConnexion']);
+  }
+
   get isConnected() {
     return this.userService.isConnected();
   }

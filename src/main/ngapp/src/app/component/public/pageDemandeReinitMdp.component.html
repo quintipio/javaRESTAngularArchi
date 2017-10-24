@@ -1,0 +1,25 @@
+<article>
+  <h2>Demande de réinitialisation de mot de passe</h2>
+
+  <div class="form-group row decale">
+    <div class="alert alert-success" *ngIf="message">
+      <p>Une demande a été envoyée</p>
+    </div>
+
+    <label for="inputIdentifiant" class="col-xs-3 col-form-label mr-2" *ngIf="!message">Identifiant </label>
+    <div class="col-xs-9" *ngIf="!message">
+      <input id="inputIdentifiant" name="inputIdentifiant" class="form-control" [(ngModel)]="sso" required />
+    </div>
+  </div>
+
+  <div class="form-group row decale" *ngIf="!message">
+    Si votre identifiant est reconnu un mail avec un lien pour réactiver votre compte vous seras envoyer sur l'adresse mail associé à votre compte
+  </div>
+
+  <div class="form-group row center-text">
+    <div class="offset-xs-3 col-xs-9">
+      <button (click)="reinit()" class="btn btn-primary" *ngIf="!message">Demander une réinitialisation</button>
+      <button (click)="retour()" class="btn btn-secondary" *ngIf="message">Retour</button>
+    </div>
+  </div>
+</article>

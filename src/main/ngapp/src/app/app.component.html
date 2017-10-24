@@ -32,10 +32,12 @@
 
         </div>
 
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#connexion" *ngIf="!isConnected">Connexion</button>
+        <button type="button" class="btn btn-primary btn-lg" (click)="goToConnect()"  *ngIf="!isConnected">Connexion</button>
 
       </nav>
-          <div class="modal fade" id="connexion" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" >
+      <!--data-toggle="modal" data-target="#connexion"-->
+      <!--
+          <div class="modal fade" id="connexion" [style.display]="showModal ? 'block':'none'" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" >
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -52,7 +54,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div>-->
 
 
 <section class="container center-text">

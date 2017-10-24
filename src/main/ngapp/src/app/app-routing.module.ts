@@ -10,12 +10,18 @@ import {AuthGuard} from "./guards/auth-guard.service";
 import {ErrorConnexionComponent} from "./commons/errorConnexion.component";
 import {AdminAuthGuard} from "./guards/admin-auth-guard.service";
 import {ModifCompteComponent} from './component/standard/modifCompte.component';
+import {PageDemandeReinitMdpComponent} from './component/public/pageDemandeReinitmdp.component';
+import {PageReinitMdpComponent} from './component/public/pageReinitMdp.component';
+import {PageActivationCompteComponent} from './component/public/pageActivationCompte.component';
 
 const routes: Routes = [
   { path: 'erreurConnexion',component: ErrorConnexionComponent },
 
   { path: '', redirectTo: '/accueil', pathMatch: 'full' },
   { path: 'accueil',  component: PageAccueilComponent},
+  { path: 'demandereinitmdp',  component: PageDemandeReinitMdpComponent},
+  { path: 'reinitmdp',  component: PageReinitMdpComponent },
+  { path: 'activerCompte',  component: PageActivationCompteComponent },
 
   { path: 'pageUtilisateur',  component: PageUtilisateurComponent, canActivate: [AuthGuard]},
   { path: 'monCompte',  component: ModifCompteComponent, canActivate: [AuthGuard]},
