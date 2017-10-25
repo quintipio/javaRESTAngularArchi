@@ -43,6 +43,6 @@ public class ProfilServiceImpl implements ProfilService {
 
     @Override
     public List<Profil> searchByLibelle(String libelle) {
-       return profilRepository.findByLibelleContaining(libelle);
+       return profilRepository.findByLibelleContaining(libelle.toUpperCase());
     }
 }

@@ -25,26 +25,22 @@ export class StandardService {
 
   updateData(user : User) : Promise<User> {
     return this.http.put(this.publicurl+"/updateUser", JSON.stringify(user), {headers : this.headers}).toPromise()
-      .then(res => res.json() as User)
-      .catch(this.handleError);
+      .then(res => res.json() as User);
   }
 
-  updatePassword(oldPass:string, newPass:string) : boolean {
+  updatePassword(oldPass:string, newPass:string): Promise<boolean> {
     const url = this.publicurl+`/updatePassword?oldPass=${oldPass}&newPass=${newPass}`;
-    var res = this.http.get(url).toPromise()
-      .then(res => res.text())
-      .catch(this.handleError);
-    return true;
+    return this.http.get(url)
+      .toPromise()
+      .then(
+      res => {
+      return (res.text() === "ok");
+    });
   }
 
   deleteCompte() {
     this.http.delete(this.publicurl+"/supprimerCompte").toPromise()
-      .then(res => res.text())
-      .catch(this.handleError);
-  }
-
-  private handleError(error: any): Promise<any> {
-    return Promise.reject(error.message || error);
+      .then(res => res.text());
   }
 
 }

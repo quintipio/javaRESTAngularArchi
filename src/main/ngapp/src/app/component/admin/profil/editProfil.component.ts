@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Location }                 from '@angular/common';
 import { Profil} from "../../../model/Profil";
 import {ProfilService} from "../../../service/ProfilService";

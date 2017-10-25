@@ -16,8 +16,7 @@ export class ProfilService {
   getProfils(): Promise<Profil[]> {
     return this.http.get(this.profilurl)
       .toPromise()
-      .then(response => response.json() as Profil[])
-      .catch(this.handleError);
+      .then(response => response.json() as Profil[]);
   }
 
   getProfil(id :number) : Observable<Profil> {
@@ -29,35 +28,27 @@ export class ProfilService {
     const url = this.profilurl+`/search?libelle=${libelle}`;
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json() as Profil[])
-      .catch(this.handleError);
+      .then(response => response.json() as Profil[]);
   }
 
   create(profil: Profil): Promise<Profil> {
     return this.http
       .post(this.profilurl, JSON.stringify(profil), {headers : this.headers})
       .toPromise()
-      .then(res => res.json() as Profil)
-      .catch(this.handleError);
+      .then(res => res.json() as Profil);
   }
 
   update(profil: Profil): Promise<Profil> {
     return this.http
       .put(this.profilurl, JSON.stringify(profil), {headers: this.headers})
       .toPromise()
-      .then(res => res.json() as Profil)
-      .catch(this.handleError);
+      .then(res => res.json() as Profil);
   }
 
   delete(id: number): Promise<void> {
     const url = `${this.profilurl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then(() => null)
-      .catch(this.handleError);
-  }
-
-  private handleError(error: any): Promise<any> {
-    return Promise.reject(error.message || error);
+      .then(() => null);
   }
 }

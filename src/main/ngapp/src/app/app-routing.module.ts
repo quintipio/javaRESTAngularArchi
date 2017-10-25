@@ -7,7 +7,7 @@ import {PageUtilisateurComponent} from "./component/standard/pageUtilisateur.com
 import {PageAccueilComponent} from "./component/public/pageAccueil.component";
 import {PageAdminComponent} from "./component/admin/pageAdmin.component";
 import {AuthGuard} from "./guards/auth-guard.service";
-import {ErrorConnexionComponent} from "./commons/errorConnexion.component";
+import {ConnexionComponent} from "./commons/connexion.component";
 import {AdminAuthGuard} from "./guards/admin-auth-guard.service";
 import {ModifCompteComponent} from './component/standard/modifCompte.component';
 import {PageDemandeReinitMdpComponent} from './component/public/pageDemandeReinitmdp.component';
@@ -15,7 +15,7 @@ import {PageReinitMdpComponent} from './component/public/pageReinitMdp.component
 import {PageActivationCompteComponent} from './component/public/pageActivationCompte.component';
 
 const routes: Routes = [
-  { path: 'erreurConnexion',component: ErrorConnexionComponent },
+  { path: 'connexion',component: ConnexionComponent },
 
   { path: '', redirectTo: '/accueil', pathMatch: 'full' },
   { path: 'accueil',  component: PageAccueilComponent},

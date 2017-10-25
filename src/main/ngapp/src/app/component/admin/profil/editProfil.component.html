@@ -10,17 +10,31 @@
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="inputLibelleProfil" class="col-xs-3 col-form-label mr-2">Libellé : </label>
-    <div class="col-xs-9">
-      <input id="inputLibelleProfil" name="inputLibelleProfil" class="form-control" [(ngModel)]="profil.libelle" placeholder="Nom du profil" required />
+  <form name="form" (ngSubmit)="f.form.valid && save()" #f="ngForm">
+    <div class="form-group row">
+      <label for="inputLibelleProfil" class="col-xs-3 col-form-label mr-2">Libellé : </label>
+      <div class="col-xs-9">
+        <input id="inputLibelleProfil" name="inputLibelleProfil" class="form-control" placeholder="Nom du profil" [(ngModel)]="profil.libelle" #libelle="ngModel" required minlength="3" maxlength="100" />
+        <div *ngIf="f.submitted && libelle.dirty && libelle.invalid">
+          <small class="form-text text-danger" *ngIf="libelle.errors.required">
+            Ce champ est requis
+          </small>
+          <small class="form-text text-danger" *ngIf="libelle.errors.minlength">
+            Ce champ est trop court
+          </small>
+          <small class="form-text text-danger" *ngIf="libelle.errors.maxlength">
+            Ce champ est trop long
+          </small>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <div class="offset-xs-3 col-xs-9">
-      <button (click)="goBack()" class="btn btn-secondary">Retour</button>
-      <button (click)="save()" class="btn">Sauvegarder</button>
+    <div class="form-group row">
+      <div class="offset-xs-3 col-xs-9">
+        <button type="button" (click)="goBack()" class="btn btn-secondary">Retour</button>
+        <button class="btn btn-primary" [disabled]="!f.form.valid">Sauvegarder</button>
+      </div>
     </div>
-  </div>
+  </form>
+
 </article>

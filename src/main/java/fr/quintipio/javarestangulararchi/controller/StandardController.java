@@ -76,6 +76,8 @@ public class StandardController {
                 userService.updateUser(user);
                 log.info(user+" met à jour son mot de passe");
                 return ResponseEntity.ok("ok");
+            } else {
+                return ResponseEntity.ok("pok");
             }
         }
         log.warn("echec de mises à jour du mot de passe de "+sso);

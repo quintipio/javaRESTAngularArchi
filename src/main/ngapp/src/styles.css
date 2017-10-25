@@ -16,6 +16,16 @@
   margin-top:15px;
 }
 
+/**FORMS**/
+
+input.ng-valid[required] {
+  border-left: 5px solid #42A948;
+}
+
+input.ng-invalid {
+  border-left: 5px solid #a94442;
+}
+
 /**HEADER**/
 header {
   height:120px;

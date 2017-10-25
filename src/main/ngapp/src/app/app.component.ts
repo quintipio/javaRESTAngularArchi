@@ -1,17 +1,24 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from './service/user.service';
 import {TOKEN_LOGIN} from './service/auth.constant';
+import {CommunicationErrorService} from './service/CommunicationErrorService';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'Archi FrontEnd  - Page principale';
+export class AppComponent  implements OnInit{
+
 
   constructor(private router: Router, private userService: UserService) {
+  }
+
+  ngOnInit(): void {
+    if(this.userService.autoLogin()) {
+      this.router.navigate(['/']);
+    }
   }
 
   logout() {
@@ -20,7 +27,7 @@ export class AppComponent {
   }
 
   goToConnect() {
-    this.router.navigate(['/erreurConnexion']);
+    this.router.navigate(['/connexion']);
   }
 
   get isConnected() {
@@ -32,8 +39,8 @@ export class AppComponent {
   }
 
   get userLogin() {
-    if(localStorage.getItem(TOKEN_LOGIN) != null) {
-      return localStorage.getItem(TOKEN_LOGIN);
+    if(sessionStorage.getItem(TOKEN_LOGIN) != null) {
+      return sessionStorage.getItem(TOKEN_LOGIN);
     }
     else {
       return "";

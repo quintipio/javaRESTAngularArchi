@@ -10,16 +10,19 @@ import {UserService} from "../../service/user.service";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
   model: any = {};
   loading = false;
   error = '';
   redirectUrl: string;
+  remember:boolean;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private userService: UserService) {
     this.redirectUrl = this.activatedRoute.snapshot.queryParams['redirectTo'];
+    this.remember = false;
   }
 
   ngOnInit(): void {
@@ -34,7 +37,7 @@ export class LoginComponent implements OnInit {
           this.loading = false;
 
           if (result) {
-            this.userService.login(result);
+            this.userService.login(result,this.remember);
             this.navigateAfterSuccess();
           } else {
             this.error = 'Nom d\'utilisateur ou mot de passe incorrect';

@@ -16,6 +16,6 @@ public class AdminController {
 
     @RequestMapping(value = "/accueil", method = RequestMethod.GET)
     public ResponseEntity<String> getAccueil() {
-        return ResponseEntity.ok("Bienvenue sur la page d'accueil du oompte Admin");
+        return ResponseEntity.ok("Bienvenue sur la page d'accueil du compte Admin");
     }
 }

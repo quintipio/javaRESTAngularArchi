@@ -13,7 +13,7 @@ export class AdminAuthGuard implements CanActivate {
     if (isAdmin) {
       return true;
     } else {
-      this.router.navigate(['erreurConnexion']);
+      this.router.navigate(['connexion']);
       return false;
     }
   }

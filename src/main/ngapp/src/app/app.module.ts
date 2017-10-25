@@ -1,4 +1,4 @@
-import { NgModule }      from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import {Http, HttpModule} from '@angular/http';
@@ -23,11 +23,15 @@ import {AuthGuard} from "./guards/auth-guard.service";
 import {PublicService} from "./service/PublicService";
 import {AdminService} from "./service/AdminService";
 import {StandardService} from "./service/StandardService";
-import {ErrorConnexionComponent} from "./commons/errorConnexion.component";
+import {ConnexionComponent} from "./commons/connexion.component";
 import {ModifCompteComponent} from './component/standard/modifCompte.component';
 import {PageDemandeReinitMdpComponent} from './component/public/pageDemandeReinitmdp.component';
 import {PageReinitMdpComponent} from './component/public/pageReinitMdp.component';
 import {PageActivationCompteComponent} from './component/public/pageActivationCompte.component';
+import {GlobalErrorHandler} from './service/GlobalErrorHandler';
+import {ErrorComponent} from './commons/error.component';
+import {CommunicationErrorService} from './service/CommunicationErrorService';
+import {PasswordStrengthBarComponent} from './component/tools/password-strength-bar.component';
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -36,7 +40,7 @@ export function authHttpServiceFactory(http: Http) {
     globalHeaders: [{'Content-Type': 'application/json'}],
     noJwtError: false,
     noTokenScheme: true,
-    tokenGetter: (() => localStorage.getItem(TOKEN_NAME))
+    tokenGetter: (() => sessionStorage.getItem(TOKEN_NAME))
   }), http);
 }
 
@@ -48,8 +52,11 @@ export function authHttpServiceFactory(http: Http) {
     AppRoutingModule
   ],
   declarations: [
+    PasswordStrengthBarComponent,
+
     AppComponent,
-    ErrorConnexionComponent,
+    ConnexionComponent,
+    ErrorComponent,
 
     PageAccueilComponent,
     LoginComponent,
@@ -66,7 +73,10 @@ export function authHttpServiceFactory(http: Http) {
     SearchprofilComponent,
 
   ],
-  providers: [{provide: AuthHttp, useFactory: authHttpServiceFactory, deps: [Http]},
+  providers: [
+    {provide: AuthHttp, useFactory: authHttpServiceFactory, deps: [Http]},
+    {provide: ErrorHandler, useClass: GlobalErrorHandler},
+    CommunicationErrorService,
     ProfilService,
     AuthenticationService,
     UserService,

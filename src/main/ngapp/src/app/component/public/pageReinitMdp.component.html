@@ -1,4 +1,5 @@
 <article>
+  <form name="form" (ngSubmit)="f.form.valid && reinit()" #f="ngForm">
 
   <div class="form-group row decale decale-top center-text">
     <div class="alert alert-danger " *ngIf="error != null">
@@ -8,22 +9,50 @@
 
 
   <div class="form-group row decale decale-top">
-    <label for="inputMdpA" class="col-xs-3 col-form-label mr-2">Mot de passe </label>
+    <label for="inputMdpA" class="col-sm-3 col-form-label">Mot de passe </label>
     <div class="col-xs-9">
-      <input id="inputMdpA" name="inputMdpA" class="form-control" [(ngModel)]="mdpA" required type="password" />
+      <input id="inputMdpA" name="inputMdpA" class="form-control" [(ngModel)]="mdpA" required minlength="6" maxlength="100" type="password" #newpassNg="ngModel" (change)="checkPassword()" />
+      <password-strength-bar [passwordToCheck]="mdpA"></password-strength-bar>
+      <div *ngIf="f.submitted && newpassNg.dirty && newpassNg.invalid">
+        <small class="form-text text-danger" *ngIf="newpassNg.errors.required">
+          Ce champ est requis
+        </small>
+        <small class="form-text text-danger" *ngIf="newpassNg.errors.minlength">
+          Ce champ est trop court
+        </small>
+        <small class="form-text text-danger" *ngIf="newpassNg.errors.maxlength">
+          Ce champ est trop long
+        </small>
+      </div>
     </div>
   </div>
 
   <div class="form-group row decale">
-    <label for="inputMdpB" class="col-xs-3 col-form-label mr-2" >Confirmation du mot de passe </label>
+    <label for="inputMdpB" class="col-sm-3 col-form-label" >Confirmation du mot de passe </label>
     <div class="col-xs-9">
-      <input id="inputMdpB" name="inputMdpB" class="form-control" [(ngModel)]="mdpB" required type="password" />
+      <input id="inputMdpB" name="inputMdpB" class="form-control" [(ngModel)]="mdpB" required minlength="6" maxlength="100" type="password" #newpassConfNg="ngModel" (change)="checkPassword()" />
+      <div *ngIf="f.submitted && newpassConfNg.dirty && newpassConfNg.invalid">
+        <small class="form-text text-danger" *ngIf="newpassConfNg.errors.required">
+          Ce champ est requis
+        </small>
+        <small class="form-text text-danger" *ngIf="newpassConfNg.errors.minlength">
+          Ce champ est trop court
+        </small>
+        <small class="form-text text-danger" *ngIf="newpassConfNg.errors.maxlength">
+          Ce champ est trop long
+        </small>
+        <small class="form-text text-danger" *ngIf="errorMdp">
+          Les mots de passe ne correpsondent pas
+        </small>
+      </div>
     </div>
   </div>
 
   <div class="form-group row decale">
     <div class="offset-xs-3 col-xs-9">
-      <button (click)="reinit()" class="btn btn-primary">Réinitialiser le mot de passe</button>
+      <button class="btn btn-primary">Réinitialiser le mot de passe</button>
     </div>
   </div>
+
+  </form>
 </article>

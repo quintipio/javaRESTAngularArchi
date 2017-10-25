@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PublicService} from "../../service/PublicService";
 import {ActivatedRoute} from '@angular/router';
-import {PasswordUtils} from '../../utils/passwordUtils';
 
 @Component({
   selector:'page-reinit-mdp',
@@ -12,22 +11,20 @@ export class PageReinitMdpComponent implements OnInit{
   link : string;
   mdpA : string;
   mdpB : string;
-
-  errorMdp: boolean;
-  error:string;
+  errorMdp:boolean;
 
   constructor(private publicService: PublicService,private route:ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.errorMdp = false;
     this.route.queryParams.subscribe(params => this.link = params['key'] || "none");
   }
 
+  checkPassword() {
+    this.errorMdp = (this.mdpA !== this.mdpB);
+  }
+
   reinit(){
-    this.error = PasswordUtils.checkpassword(this.mdpA,this.mdpB);
-    if(this.error != null && this.error.length > 0) {
-      this.errorMdp = true;
-    } else {
+    if(!this.errorMdp) {
       this.publicService.reinitMdp(this.link,this.mdpA);
     }
   }

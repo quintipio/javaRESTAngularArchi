@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
     if (tokenNotExpired(TOKEN_NAME, this.userService.accessToken)) {
       return true;
     } else {
-      this.router.navigate(['erreurConnexion'], {queryParams: {redirectTo: state.url}});
+      this.router.navigate(['connexion'], {queryParams: {redirectTo: state.url}});
       return false;
     }
   }

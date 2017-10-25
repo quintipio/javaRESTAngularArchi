@@ -11,26 +11,48 @@ export class UserService {
   constructor() {
   }
 
-  login(accessToken: string) {
+  login(accessToken: string,remember:boolean) {
     const decodedToken = this.jwtHelper.decodeToken(accessToken);
     this.accessToken = accessToken;
     this.isConnectedUser = true;
-    localStorage.setItem(TOKEN_NAME, accessToken);
-    localStorage.setItem(TOKEN_LOGIN,decodedToken.user_name);
-    localStorage.setItem(TOKEN_AUTHORITIES,JSON.stringify(decodedToken.authorities));
+    sessionStorage.setItem(TOKEN_NAME, accessToken);
+    sessionStorage.setItem(TOKEN_LOGIN,decodedToken.user_name);
+    sessionStorage.setItem(TOKEN_AUTHORITIES,JSON.stringify(decodedToken.authorities));
+    if(remember) {
+      localStorage.setItem(TOKEN_NAME, accessToken);
+      localStorage.setItem(TOKEN_LOGIN,decodedToken.user_name);
+      localStorage.setItem(TOKEN_AUTHORITIES,JSON.stringify(decodedToken.authorities));
+    }
+  }
+
+  autoLogin() {
+    if(!this.isConnectedUser) {
+      if(localStorage.getItem(TOKEN_AUTHORITIES) != null) {
+        sessionStorage.setItem(TOKEN_NAME, localStorage.getItem(TOKEN_NAME));
+        sessionStorage.setItem(TOKEN_LOGIN,localStorage.getItem(TOKEN_LOGIN));
+        sessionStorage.setItem(TOKEN_AUTHORITIES,localStorage.getItem(TOKEN_AUTHORITIES));
+        return true;
+      }
+    }
+    return false;
   }
 
   logout() {
     this.accessToken = null;
     this.isConnectedUser = false;
-    localStorage.removeItem(TOKEN_NAME);
-    localStorage.removeItem(TOKEN_AUTHORITIES);
-    localStorage.removeItem(TOKEN_LOGIN);
+    sessionStorage.removeItem(TOKEN_NAME);
+    sessionStorage.removeItem(TOKEN_AUTHORITIES);
+    sessionStorage.removeItem(TOKEN_LOGIN);
+    if(localStorage.getItem(TOKEN_AUTHORITIES) != null) {
+      localStorage.removeItem(TOKEN_NAME);
+      localStorage.removeItem(TOKEN_AUTHORITIES);
+      localStorage.removeItem(TOKEN_LOGIN);
+    }
   }
 
   isAdminUser(): boolean {
-    if(localStorage.getItem(TOKEN_AUTHORITIES) != null) {
-      var storedAuto = JSON.parse(localStorage.getItem(TOKEN_AUTHORITIES));
+    if(sessionStorage.getItem(TOKEN_AUTHORITIES) != null) {
+      var storedAuto = JSON.parse(sessionStorage.getItem(TOKEN_AUTHORITIES));
       return storedAuto.some(el => el === ROLE_ADMIN);
     }
     return false;
@@ -38,6 +60,6 @@ export class UserService {
   }
 
   isConnected(): boolean {
-    return localStorage.getItem(TOKEN_NAME) != null;
+    return sessionStorage.getItem(TOKEN_NAME) != null;
   }
 }

@@ -1,25 +1,40 @@
 <article>
   <h2>Demande de réinitialisation de mot de passe</h2>
 
-  <div class="form-group row decale">
-    <div class="alert alert-success" *ngIf="message">
-      <p>Une demande a été envoyée</p>
+  <form name="form" (ngSubmit)="f.form.valid && reinit()" #f="ngForm">
+
+    <div class="form-group row decale">
+      <div class="alert alert-success" *ngIf="message">
+        <p>Une demande a été envoyée</p>
+      </div>
+
+      <label for="inputIdentifiant" class="col-sm-3 col-form-label" *ngIf="!message">Identifiant </label>
+      <div class="col-xs-9" *ngIf="!message">
+        <input id="inputIdentifiant" name="inputIdentifiant" class="form-control" [(ngModel)]="sso" required minlength="3" maxlength="100" #ssong="ngModel" />
+        <div *ngIf="f.submitted && ssong.dirty && ssong.invalid">
+          <small class="form-text text-danger" *ngIf="ssong.errors.required">
+            Ce champ est requis
+          </small>
+          <small class="form-text text-danger" *ngIf="ssong.errors.minlength">
+            Ce champ est trop court
+          </small>
+          <small class="form-text text-danger" *ngIf="ssong.errors.maxlength">
+            Ce champ est trop long
+          </small>
+        </div>
+      </div>
     </div>
 
-    <label for="inputIdentifiant" class="col-xs-3 col-form-label mr-2" *ngIf="!message">Identifiant </label>
-    <div class="col-xs-9" *ngIf="!message">
-      <input id="inputIdentifiant" name="inputIdentifiant" class="form-control" [(ngModel)]="sso" required />
+    <div class="form-group row decale" *ngIf="!message">
+      Si votre identifiant est reconnu un mail avec un lien pour réactiver votre compte vous seras envoyer sur l'adresse mail associé à votre compte
     </div>
-  </div>
 
-  <div class="form-group row decale" *ngIf="!message">
-    Si votre identifiant est reconnu un mail avec un lien pour réactiver votre compte vous seras envoyer sur l'adresse mail associé à votre compte
-  </div>
-
-  <div class="form-group row center-text">
-    <div class="offset-xs-3 col-xs-9">
-      <button (click)="reinit()" class="btn btn-primary" *ngIf="!message">Demander une réinitialisation</button>
-      <button (click)="retour()" class="btn btn-secondary" *ngIf="message">Retour</button>
+    <div class="form-group row center-text">
+      <div class="offset-xs-3 col-xs-9">
+        <button class="btn btn-primary" *ngIf="!message" [disabled]="!f.form.valid">Demander une réinitialisation</button>
+        <button (click)="retour()" class="btn btn-secondary" *ngIf="message">Retour</button>
+      </div>
     </div>
-  </div>
+
+  </form>
 </article>
