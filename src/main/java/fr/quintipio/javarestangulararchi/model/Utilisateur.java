@@ -1,10 +1,12 @@
 package fr.quintipio.javarestangulararchi.model;
 
+import fr.quintipio.javarestangulararchi.configuration.Constantes;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +22,7 @@ public class Utilisateur {
     @NotNull
     @NotEmpty
     @Size(min = 3, max = 100)
+    @Pattern(regexp = Constantes.LOGIN_REGEX)
     String sso;
 
 
@@ -63,10 +66,9 @@ public class Utilisateur {
             inverseJoinColumns = { @JoinColumn(name = "PROFIL_ID") })
     Set<Profil> userProfiles = new HashSet<>();
 
-
     @NotNull
     @NotEmpty
-    @Size(min=2, max=6)
+    @Size(min=2, max = 6)
     @Column(name = "langue", nullable = false)
     private String langue;
 

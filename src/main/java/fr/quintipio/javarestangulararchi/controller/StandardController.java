@@ -1,5 +1,6 @@
 package fr.quintipio.javarestangulararchi.controller;
 
+import fr.quintipio.javarestangulararchi.configuration.Constantes;
 import fr.quintipio.javarestangulararchi.model.Utilisateur;
 import fr.quintipio.javarestangulararchi.service.MessageByLocaleService;
 import fr.quintipio.javarestangulararchi.service.UserService;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/standard")
+@RequestMapping(Constantes.URL_USER)
 //@PreAuthorize("hasAuthority('ADMIN_USER') or hasAuthority('STANDARD_USER')")
 public class StandardController {
 

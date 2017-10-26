@@ -1,6 +1,8 @@
 package fr.quintipio.javarestangulararchi.controller;
 
+import fr.quintipio.javarestangulararchi.configuration.Constantes;
 import fr.quintipio.javarestangulararchi.service.MessageByLocaleService;
+import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/admin")
+@RequestMapping(Constantes.URL_ADMIN)
 //@PreAuthorize("hasAuthority('ADMIN_USER')")
 public class AdminController {
 

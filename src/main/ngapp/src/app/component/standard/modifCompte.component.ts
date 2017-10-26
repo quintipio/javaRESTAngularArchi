@@ -4,7 +4,6 @@ import {User} from '../../model/User';
 import {UserService} from '../../service/user.service';
 import {Router} from '@angular/router';
 import {TranslateService} from '../../translate/translate.service';
-import {LANGUES_DISPO} from '../../translate/translation';
 
 @Component({
   selector:'modif-compte',

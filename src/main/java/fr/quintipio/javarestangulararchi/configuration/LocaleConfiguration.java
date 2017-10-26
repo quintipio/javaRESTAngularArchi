@@ -27,7 +27,7 @@ public class LocaleConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-        lci.setParamName("lang");
+        lci.setParamName(Constantes.PARAM_URL_LANGUE);
         return lci;
     }
 
@@ -39,7 +39,7 @@ public class LocaleConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:messages");
+        messageSource.setBasename(Constantes.PARAM_LOC_TRAD);
         messageSource.setCacheSeconds(3600);
         return messageSource;
     }

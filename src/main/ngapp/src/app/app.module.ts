@@ -16,7 +16,7 @@ import {PageAdminComponent} from "./component/admin/pageAdmin.component";
 import {LoginComponent} from "./component/login/login.component";
 import {UserService} from "./service/user.service";
 import {AuthenticationService} from "./service/authentication.service";
-import {TOKEN_NAME} from "./service/auth.constant";
+import {TOKEN_NAME} from "./constantes";
 import {AuthConfig, AuthHttp} from "angular2-jwt";
 import {AdminAuthGuard} from "./guards/admin-auth-guard.service";
 import {AuthGuard} from "./guards/auth-guard.service";

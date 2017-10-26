@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {tokenNotExpired} from 'angular2-jwt';
 
-import {TOKEN_NAME} from "../service/auth.constant"
+import {TOKEN_NAME} from "../constantes"
 import {UserService} from "../service/user.service"
 
 @Injectable()

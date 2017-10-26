@@ -1,5 +1,6 @@
 package fr.quintipio.javarestangulararchi.controller;
 
+import fr.quintipio.javarestangulararchi.configuration.Constantes;
 import fr.quintipio.javarestangulararchi.model.Utilisateur;
 import fr.quintipio.javarestangulararchi.service.MailService;
 import fr.quintipio.javarestangulararchi.service.MessageByLocaleService;
@@ -18,7 +19,7 @@ import java.util.UUID;
  * Controleur pour toute la partie publique du site (accesible sans compte)
  */
 @RestController
-@RequestMapping("/public")
+@RequestMapping(Constantes.URL_PUBLIC)
 @CrossOrigin("*")
 public class PublicController {
 
@@ -69,7 +70,7 @@ public class PublicController {
             userService.updateUser(user);
             log.info("L'utilisateur "+sso+" id:"+user.getId()+" à demander la réinitialisation du mot de passe avec le token:"+token);
 
-            if(!mailService.sendEmailFromTemplate(user,"passwordResetEmail",messageByLocaleService.getMessage("mail.titre.reinitMdp"))) {
+            if(!mailService.sendEmailFromTemplate(user,Constantes.TEMPLATE_RESET_PASSWORD, messageByLocaleService.getMessage("mail.titre.reinitMdp"))) {
                 log.warn("L'utilisateur "+sso+" id:"+user.getId()+" à échouer sur l'envoi du mail:"+user.getEmail()+" pour réinitialiser son mot de passe");
 
                 user.setLink(null);

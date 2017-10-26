@@ -27,8 +27,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    static final String SIGNING_KEY = "MaYzkSjmkzPC57L";
-    static final String SECURITY_REALM = "Spring Boot Angular Archi example";
 
 
     @Bean
@@ -51,28 +49,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .antMatchers("/").permitAll()
-                .antMatchers("/actuator/**").permitAll()
+                //.antMatchers("/actuator/**").permitAll()
                 .antMatchers("/api-docs/**").permitAll()
-                .antMatchers("/public/**").permitAll()
-                .antMatchers("/standard/**","/admin/**").authenticated()
-                .antMatchers("/admin/**").hasAuthority("ADMIN_USER")
-                .antMatchers("/standard/**").hasAnyAuthority("ADMIN_USER","STANDARD_USER")
+                .antMatchers(Constantes.URL_PUBLIC+"/**").permitAll()
+                .antMatchers(Constantes.URL_USER+"/**",Constantes.URL_ADMIN+"/**").authenticated()
+                .antMatchers(Constantes.URL_ADMIN+"/**").hasAuthority(Constantes.DROIT_ADMIN)
+                .antMatchers(Constantes.URL_USER+"/**").hasAnyAuthority(Constantes.DROIT_USER,Constantes.DROIT_ADMIN)
                 .and()
                 .anonymous().disable()
-                .httpBasic().realmName(SECURITY_REALM)
+                .httpBasic().realmName(Constantes.SECURITY_REALM)
                 .and()
                 .csrf().disable();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/public/**","/h2-console/**");
+        web.ignoring().antMatchers(Constantes.URL_PUBLIC+"/**","/h2-console/**");
     }
 
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(SIGNING_KEY);
+        converter.setSigningKey(Constantes.SIGNING_KEY);
         return converter;
     }
 

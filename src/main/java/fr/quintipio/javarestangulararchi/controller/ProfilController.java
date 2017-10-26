@@ -1,6 +1,7 @@
 package fr.quintipio.javarestangulararchi.controller;
 
 
+import fr.quintipio.javarestangulararchi.configuration.Constantes;
 import fr.quintipio.javarestangulararchi.model.Profil;
 import fr.quintipio.javarestangulararchi.service.MailService;
 import fr.quintipio.javarestangulararchi.service.ProfilService;
@@ -17,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping(Constantes.URL_ADMIN)
 //@PreAuthorize("hasAuthority('ADMIN_USER')")
 public class ProfilController {
 

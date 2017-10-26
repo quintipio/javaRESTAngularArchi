@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from './service/user.service';
-import {TOKEN_LOGIN} from './service/auth.constant';
-import {CommunicationErrorService} from './service/CommunicationErrorService';
+import {LANGUE_DEFAUT, LANGUES_DISPO, TOKEN_LOGIN} from './constantes';
 import {TranslateService} from './translate/translate.service';
-import {LANGUE_DEFAUT, LANGUES_DISPO} from './translate/translation';
 import {StandardService} from './service/StandardService';
 
 @Component({

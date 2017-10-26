@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {JwtHelper} from 'angular2-jwt';
-import {TOKEN_NAME, TOKEN_AUTHORITIES, TOKEN_LOGIN,ROLE_ADMIN} from "./auth.constant";
+import {TOKEN_NAME, TOKEN_AUTHORITIES, TOKEN_LOGIN,ROLE_ADMIN} from "../constantes";
 import {TranslateService} from '../translate/translate.service';
 import {StandardService} from './StandardService';
 

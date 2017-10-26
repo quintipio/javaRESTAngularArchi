@@ -14,8 +14,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 
 import java.util.Arrays;
 
-import static fr.quintipio.javarestangulararchi.configuration.SecurityConfig.SIGNING_KEY;
-
 
 /**
  * Configuration du serveur pour JWT
@@ -24,11 +22,7 @@ import static fr.quintipio.javarestangulararchi.configuration.SecurityConfig.SIG
 @EnableAuthorizationServer
 @EnableResourceServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    static final String CLIEN_ID = "archiAngularRest";
-    static final String GRANT_TYPE = "password";
-    static final String SCOPE_READ = "read";
-    static final String SCOPE_WRITE = "write";
-    static final String RESOURCES_IDS = "archiAngularRest";
+
 
     @Autowired
     private TokenStore tokenStore;
@@ -43,11 +37,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
         configurer
                 .inMemory()
-                .withClient(CLIEN_ID)
-                .secret(SIGNING_KEY)
-                .authorizedGrantTypes(GRANT_TYPE)
-                .scopes(SCOPE_READ, SCOPE_WRITE)
-                .resourceIds(RESOURCES_IDS);
+                .withClient(Constantes.CLIEN_ID)
+                .secret(Constantes.SIGNING_KEY)
+                .authorizedGrantTypes(Constantes.GRANT_TYPE)
+                .scopes(Constantes.SCOPE_READ, Constantes.SCOPE_WRITE)
+                .resourceIds(Constantes.RESOURCES_IDS);
     }
 
 

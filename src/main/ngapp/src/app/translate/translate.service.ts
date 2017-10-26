@@ -1,5 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {TRANSLATIONS} from './translation';
+import {PARAM_LANGUE_SERVER} from '../constantes';
 
 @Injectable()
 export class TranslateService{
@@ -34,6 +35,6 @@ export class TranslateService{
   }
 
   public urlServerlangue(isOtherParam : boolean):  string {
-    return (isOtherParam)?`&lang=${this.currentLang}`:`?lang=${this.currentLang}`;
+    return (isOtherParam)?`&`+PARAM_LANGUE_SERVER+`=${this.currentLang}`:`?`+PARAM_LANGUE_SERVER+`=${this.currentLang}`;
   }
 }
