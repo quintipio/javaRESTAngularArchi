@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {JwtHelper} from 'angular2-jwt';
 import {TOKEN_NAME, TOKEN_AUTHORITIES, TOKEN_LOGIN,ROLE_ADMIN} from "./auth.constant";
+import {TranslateService} from '../translate/translate.service';
+import {StandardService} from './StandardService';
 
 @Injectable()
 export class UserService {
@@ -8,7 +10,7 @@ export class UserService {
   accessToken: string;
   isConnectedUser: boolean;
 
-  constructor() {
+  constructor(private standardService: StandardService, private _translate : TranslateService) {
   }
 
   login(accessToken: string,remember:boolean) {
@@ -23,6 +25,8 @@ export class UserService {
       localStorage.setItem(TOKEN_LOGIN,decodedToken.user_name);
       localStorage.setItem(TOKEN_AUTHORITIES,JSON.stringify(decodedToken.authorities));
     }
+
+    this.standardService.getLangue().subscribe(res => this._translate.use(res));
   }
 
   autoLogin() {
@@ -31,6 +35,7 @@ export class UserService {
         sessionStorage.setItem(TOKEN_NAME, localStorage.getItem(TOKEN_NAME));
         sessionStorage.setItem(TOKEN_LOGIN,localStorage.getItem(TOKEN_LOGIN));
         sessionStorage.setItem(TOKEN_AUTHORITIES,localStorage.getItem(TOKEN_AUTHORITIES));
+        this.standardService.getLangue().subscribe(res => this._translate.use(res));
         return true;
       }
     }

@@ -7,7 +7,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 /**
- * Created by nydiarra on 06/05/17.
+ * Configuration du serveur pour les requetes CROS
  */
 @Configuration
 public class AdditionalWebConfig {

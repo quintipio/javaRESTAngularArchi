@@ -1,9 +1,10 @@
 
 <div *ngIf="!isConnected">
-  <h1>Veuillez vous identifier</h1>
+  <h1>{{'Veuillez vous identifier' | translate}}</h1>
 <login></login>
 </div>
 <div *ngIf="isConnected">
-  <h1>Vous êtes maintenant connecté</h1>
-  <button type="button" class="btn btn-secondary btn-lg" (click)="logout()" *ngIf="isConnected">Déconnexion</button>
+  <h1>{{'Vous etes maintenant connecte' | translate}}</h1>
+  <button type="button" class="btn btn-secondary btn-lg" (click)="logout()" *ngIf="isConnected">{{'Deconnexion' |
+    translate}}</button>
 </div>

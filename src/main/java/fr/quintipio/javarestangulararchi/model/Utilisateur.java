@@ -1,7 +1,6 @@
 package fr.quintipio.javarestangulararchi.model;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -20,6 +19,7 @@ public class Utilisateur {
 
     @NotNull
     @NotEmpty
+    @Size(min = 3, max = 100)
     String sso;
 
 
@@ -33,31 +33,27 @@ public class Utilisateur {
     @NotEmpty
     @NotNull
     @Column(name="email",nullable = false)
-    @Size(max = 255)
-    @Length(max = 255)
+    @Size(max = 100, min = 5)
     @Email
     String email;
 
     @NotEmpty
     @Column(name="motdepasse", nullable=false)
     @NotNull
-    @Size(min= 8 ,max = 255)
-    @Length(min= 8 ,max = 255)
+    @Size(max = 100, min = 6)
     String motDePasse;
 
     @NotEmpty
     @Column(name="prenom", nullable=false)
     @NotNull
-    @Size(max = 255)
-    @Length(max = 255)
+    @Size(min = 2, max = 100)
     private String prenom;
 
 
     @NotEmpty
     @Column(name="nom", nullable=false)
     @NotNull
-    @Length(max = 255)
-    @Size(max = 255)
+    @Size(min = 2, max = 100)
     private String nom;
 
     @NotEmpty
@@ -66,6 +62,13 @@ public class Utilisateur {
             joinColumns = { @JoinColumn(name = "UTILISATEUR_ID") },
             inverseJoinColumns = { @JoinColumn(name = "PROFIL_ID") })
     Set<Profil> userProfiles = new HashSet<>();
+
+
+    @NotNull
+    @NotEmpty
+    @Size(min=2, max=6)
+    @Column(name = "langue", nullable = false)
+    private String langue;
 
 
     public Utilisateur() {
@@ -147,6 +150,15 @@ public class Utilisateur {
         isActive = active;
     }
 
+
+    public String getLangue() {
+        return langue;
+    }
+
+    public void setLangue(String langue) {
+        this.langue = langue;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -177,6 +189,7 @@ public class Utilisateur {
                 ", prenom='" + prenom + '\'' +
                 ", nom='" + nom + '\'' +
                 ", userProfiles=" + userProfiles +
+                ", langue='" + langue + '\'' +
                 '}';
     }
 }

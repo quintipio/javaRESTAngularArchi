@@ -3,6 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 
 import {AuthenticationService} from "../../service/authentication.service"
 import {UserService} from "../../service/user.service";
+import {TranslateService} from '../../translate/translate.service';
 
 @Component({
   selector: 'login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
-              private userService: UserService) {
+              private userService: UserService,
+              private _translate: TranslateService) {
     this.redirectUrl = this.activatedRoute.snapshot.queryParams['redirectTo'];
     this.remember = false;
   }
@@ -40,11 +42,11 @@ export class LoginComponent implements OnInit {
             this.userService.login(result,this.remember);
             this.navigateAfterSuccess();
           } else {
-            this.error = 'Nom d\'utilisateur ou mot de passe incorrect';
+            this.error = this._translate.instant('Login incorrect');
           }
         },
         error => {
-          this.error = 'Nom d\'utilisateur ou mot de passe incorrect';
+          this.error = this._translate.instant('Login incorrect');
           this.loading = false;
         }
       );

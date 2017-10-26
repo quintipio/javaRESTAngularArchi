@@ -1,5 +1,5 @@
 <div id="search-component">
-  <label for="search-box">Rechercher :</label>
+  <label for="search-box">{{ 'Rechercher' | translate}} :</label>
   <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
   <div>
     <div *ngFor="let profil of profils"

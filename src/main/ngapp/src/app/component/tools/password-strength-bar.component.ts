@@ -7,7 +7,7 @@ import { Component, ElementRef, Input, Renderer } from '@angular/core';
     selector: 'password-strength-bar',
     template: `
         <div id="strength">
-            <small>Force : </small>
+            <small>{{'Force' | translate}} : </small>
             <ul id="strengthBar">
                 <li class="point"></li>
                 <li class="point"></li>

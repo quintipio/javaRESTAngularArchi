@@ -2,28 +2,28 @@
   <div class="row">
     <div class="col-sm-12">
       <div *ngIf="isModif">
-        <h2>Détails de {{profil.libelle}}</h2>
+        <h2>{{'Details de' | translate}} {{profil.libelle}}</h2>
       </div>
       <div *ngIf="!isModif">
-        <h2>Créer un profil</h2>
+        <h2>{{'Creer un profil' | translate}}</h2>
       </div>
     </div>
   </div>
 
   <form name="form" (ngSubmit)="f.form.valid && save()" #f="ngForm">
     <div class="form-group row">
-      <label for="inputLibelleProfil" class="col-xs-3 col-form-label mr-2">Libellé : </label>
+      <label for="inputLibelleProfil" class="col-xs-3 col-form-label mr-2">{{'Libelle' | translate}} : </label>
       <div class="col-xs-9">
-        <input id="inputLibelleProfil" name="inputLibelleProfil" class="form-control" placeholder="Nom du profil" [(ngModel)]="profil.libelle" #libelle="ngModel" required minlength="3" maxlength="100" />
+        <input id="inputLibelleProfil" name="inputLibelleProfil" class="form-control" [(ngModel)]="profil.libelle" #libelle="ngModel" required minlength="3" maxlength="100" />
         <div *ngIf="f.submitted && libelle.dirty && libelle.invalid">
           <small class="form-text text-danger" *ngIf="libelle.errors.required">
-            Ce champ est requis
+            {{'Ce champ est requis' | translate}}
           </small>
           <small class="form-text text-danger" *ngIf="libelle.errors.minlength">
-            Ce champ est trop court
+            {{'Ce champ est trop court' | translate}}
           </small>
           <small class="form-text text-danger" *ngIf="libelle.errors.maxlength">
-            Ce champ est trop long
+            {{'Ce champ est trop long' | translate}}
           </small>
         </div>
       </div>
@@ -31,8 +31,8 @@
 
     <div class="form-group row">
       <div class="offset-xs-3 col-xs-9">
-        <button type="button" (click)="goBack()" class="btn btn-secondary">Retour</button>
-        <button class="btn btn-primary" [disabled]="!f.form.valid">Sauvegarder</button>
+        <button type="button" (click)="goBack()" class="btn btn-secondary">{{'Retour' | translate}}</button>
+        <button class="btn btn-primary" [disabled]="!f.form.valid">{{'Sauvegarder' | translate}}</button>
       </div>
     </div>
   </form>

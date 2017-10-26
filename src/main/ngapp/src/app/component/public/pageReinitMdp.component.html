@@ -9,40 +9,40 @@
 
 
   <div class="form-group row decale decale-top">
-    <label for="inputMdpA" class="col-sm-3 col-form-label">Mot de passe </label>
+    <label for="inputMdpA" class="col-sm-3 col-form-label">{{'Nouveau mot de passe' | translate}} :</label>
     <div class="col-xs-9">
       <input id="inputMdpA" name="inputMdpA" class="form-control" [(ngModel)]="mdpA" required minlength="6" maxlength="100" type="password" #newpassNg="ngModel" (change)="checkPassword()" />
       <password-strength-bar [passwordToCheck]="mdpA"></password-strength-bar>
       <div *ngIf="f.submitted && newpassNg.dirty && newpassNg.invalid">
         <small class="form-text text-danger" *ngIf="newpassNg.errors.required">
-          Ce champ est requis
+          {{'Ce champ est requis' | translate}}
         </small>
         <small class="form-text text-danger" *ngIf="newpassNg.errors.minlength">
-          Ce champ est trop court
+          {{'Ce champ est trop court' | translate}}
         </small>
         <small class="form-text text-danger" *ngIf="newpassNg.errors.maxlength">
-          Ce champ est trop long
+          {{'Ce champ est trop long' | translate}}
         </small>
       </div>
     </div>
   </div>
 
   <div class="form-group row decale">
-    <label for="inputMdpB" class="col-sm-3 col-form-label" >Confirmation du mot de passe </label>
+    <label for="inputMdpB" class="col-sm-3 col-form-label" >{{'Confirmation de votre mot de passe' | translate}} : </label>
     <div class="col-xs-9">
       <input id="inputMdpB" name="inputMdpB" class="form-control" [(ngModel)]="mdpB" required minlength="6" maxlength="100" type="password" #newpassConfNg="ngModel" (change)="checkPassword()" />
       <div *ngIf="f.submitted && newpassConfNg.dirty && newpassConfNg.invalid">
         <small class="form-text text-danger" *ngIf="newpassConfNg.errors.required">
-          Ce champ est requis
+          {{'Ce champ est requis' | translate}}
         </small>
         <small class="form-text text-danger" *ngIf="newpassConfNg.errors.minlength">
-          Ce champ est trop court
+          {{'Ce champ est trop court' | translate}}
         </small>
         <small class="form-text text-danger" *ngIf="newpassConfNg.errors.maxlength">
-          Ce champ est trop long
+          {{'Ce champ est trop long' | translate}}
         </small>
         <small class="form-text text-danger" *ngIf="errorMdp">
-          Les mots de passe ne correpsondent pas
+          {{'Les mots de passe ne correpsondent pas' | translate}}
         </small>
       </div>
     </div>
@@ -50,7 +50,7 @@
 
   <div class="form-group row decale">
     <div class="offset-xs-3 col-xs-9">
-      <button class="btn btn-primary">Réinitialiser le mot de passe</button>
+      <button class="btn btn-primary">{{'reinitMdpButton' | translate}}</button>
     </div>
   </div>
 

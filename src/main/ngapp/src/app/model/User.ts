@@ -9,4 +9,5 @@ export class User {
   prenom:string;
   profils:Profil[];
   active:boolean;
+  langue:string;
 }

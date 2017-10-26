@@ -3,6 +3,9 @@ import {Router} from '@angular/router';
 import {UserService} from './service/user.service';
 import {TOKEN_LOGIN} from './service/auth.constant';
 import {CommunicationErrorService} from './service/CommunicationErrorService';
+import {TranslateService} from './translate/translate.service';
+import {LANGUE_DEFAUT, LANGUES_DISPO} from './translate/translation';
+import {StandardService} from './service/StandardService';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +15,36 @@ import {CommunicationErrorService} from './service/CommunicationErrorService';
 export class AppComponent  implements OnInit{
 
 
-  constructor(private router: Router, private userService: UserService) {
+  public supportedLanguages : any[];
+
+  constructor(private router: Router,
+              private userService: UserService,
+              private _translate: TranslateService,
+              private standardService : StandardService) {
   }
 
   ngOnInit(): void {
+
+    this.supportedLanguages = LANGUES_DISPO;
+    this.selectLang(LANGUE_DEFAUT);
+
     if(this.userService.autoLogin()) {
       this.router.navigate(['/']);
     }
   }
+
+  isCurrentLang(lang: string) {
+    return lang === this._translate.currentLang;
+  }
+
+  selectLang(lang:string) {
+    this._translate.use(lang);
+    if(this.isConnected) {
+      this.standardService.updateLangue(lang);
+    }
+  }
+
+
 
   logout() {
     this.userService.logout();

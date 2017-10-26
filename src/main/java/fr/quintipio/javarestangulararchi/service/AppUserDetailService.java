@@ -19,16 +19,19 @@ public class AppUserDetailService implements UserDetailsService  {
     @Autowired
     private UtilisateurRepository userRepository;
 
+    @Autowired
+    private MessageByLocaleService messageByLocaleService;
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Utilisateur user = userRepository.findBySso(s);
 
         if(user == null) {
-            throw new UsernameNotFoundException(String.format("Utilisateur inconnu", s));
+            throw new UsernameNotFoundException(String.format(messageByLocaleService.getMessage("error.utilisateurInconnu"), s));
         }
 
         if(!user.getActive()) {
-            throw new UsernameNotFoundException(String.format("Utilisateur désactivé", s));
+            throw new UsernameNotFoundException(String.format(messageByLocaleService.getMessage("error.utilisateurDesactive"), s));
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();

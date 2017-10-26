@@ -18,7 +18,7 @@ import static fr.quintipio.javarestangulararchi.configuration.SecurityConfig.SIG
 
 
 /**
- * Created by nydiarra on 06/05/17.
+ * Configuration du serveur pour JWT
  */
 @Configuration
 @EnableAuthorizationServer

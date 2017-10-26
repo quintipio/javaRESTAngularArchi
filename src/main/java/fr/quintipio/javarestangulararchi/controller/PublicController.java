@@ -2,6 +2,7 @@ package fr.quintipio.javarestangulararchi.controller;
 
 import fr.quintipio.javarestangulararchi.model.Utilisateur;
 import fr.quintipio.javarestangulararchi.service.MailService;
+import fr.quintipio.javarestangulararchi.service.MessageByLocaleService;
 import fr.quintipio.javarestangulararchi.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,9 @@ public class PublicController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private MessageByLocaleService messageByLocaleService;
+
 
     /**
      * Message pour la page d'accueil
@@ -39,7 +43,7 @@ public class PublicController {
      */
     @RequestMapping(value = "/accueil", method = RequestMethod.GET)
     public ResponseEntity<String> getAccueil() {
-        return ResponseEntity.ok("Bienvenue sur la page d'accueil publique");
+        return ResponseEntity.ok(messageByLocaleService.getMessage("accueilPublic"));
     }
 
 
@@ -53,6 +57,7 @@ public class PublicController {
     public ResponseEntity demandeReinitMdp(@RequestParam("sso") String sso) {
         Utilisateur user = userService.findBySso(sso);
         log.info("Identifiant "+sso+" - Demande reinit Mot de passe");
+
         if(user != null) {
             String token = null;
             do {
@@ -63,8 +68,10 @@ public class PublicController {
             user.setLink(token);
             userService.updateUser(user);
             log.info("L'utilisateur "+sso+" id:"+user.getId()+" à demander la réinitialisation du mot de passe avec le token:"+token);
-            if(!mailService.sendEmailFromTemplate(user,"passwordResetEmail","Réinitialisation du mot de passe")) {
+
+            if(!mailService.sendEmailFromTemplate(user,"passwordResetEmail",messageByLocaleService.getMessage("mail.titre.reinitMdp"))) {
                 log.warn("L'utilisateur "+sso+" id:"+user.getId()+" à échouer sur l'envoi du mail:"+user.getEmail()+" pour réinitialiser son mot de passe");
+
                 user.setLink(null);
                 userService.updateUser(user);
             }

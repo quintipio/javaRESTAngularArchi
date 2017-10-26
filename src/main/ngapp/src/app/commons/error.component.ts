@@ -1,5 +1,6 @@
 import {ChangeDetectorRef, Component,  OnInit} from '@angular/core';
 import {CommunicationErrorService} from '../service/CommunicationErrorService';
+import {TranslateService} from '../translate/translate.service';
 
 @Component({
   selector:'error-component',
@@ -12,17 +13,17 @@ export class ErrorComponent implements OnInit{
   isError:boolean;
   error:string;
 
-  constructor(private communicationErrorService: CommunicationErrorService, private ref: ChangeDetectorRef) {
+  constructor(private communicationErrorService: CommunicationErrorService, private ref: ChangeDetectorRef, private _translate: TranslateService) {
   }
 
   ngOnInit(): void {
     this.communicationErrorService.componentMethodCalled$.subscribe(
       res => {
         if(res.status === 504) {
-          this.error = "Le serveur ne répond pas";
+          this.error =  this._translate.instant('Le serveur ne repond pas');
         }
         else {
-          this.error = "Une erreur inconnue est survenue";
+          this.error = this._translate.instant('Une erreur inconnue est survenue');
         }
         this.isError = true;
         this.ref.detectChanges();

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PublicService} from "../../service/PublicService";
 import {ActivatedRoute} from '@angular/router';
+import {TranslateService} from '../../translate/translate.service';
 
 @Component({
   selector:'page-activation-compte',
@@ -15,7 +16,7 @@ export class PageActivationCompteComponent implements OnInit{
   key:string;
 
   constructor(
-    private publicService: PublicService, private route: ActivatedRoute) {
+    private publicService: PublicService, private route: ActivatedRoute, private _translate : TranslateService) {
     this.errorMsg = false;
     this.ok = false;
   }
@@ -30,7 +31,7 @@ export class PageActivationCompteComponent implements OnInit{
     else {
       this.errorMsg = true;
       this.ok = false;
-      this.error = "Erreur sur votre lien d'activation";
+      this.error = this._translate.instant("Erreur lien activation");
     }
   }
 

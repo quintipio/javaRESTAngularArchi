@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -62,14 +63,14 @@ public class ProfilController {
     }
 
     @PostMapping(value = "/profil")
-    public ResponseEntity<Profil> createProfil(@RequestBody Profil profil) {
+    public ResponseEntity<Profil> createProfil(@Valid @RequestBody Profil profil) {
         this.profilService.save(profil);
         log.info("Crétion du profil"+profil.getLibelle()+" id:"+profil.getId());
         return ResponseEntity.ok(profil);
     }
 
     @PutMapping(value = "/profil")
-    public ResponseEntity<Profil> updateprofil(@RequestBody Profil profil) {
+    public ResponseEntity<Profil> updateprofil(@Valid @RequestBody Profil profil) {
         this.profilService.update(profil);
         log.info("Mise à jour du profil"+profil.getLibelle()+" id:"+profil.getId());
         return ResponseEntity.ok(profil);

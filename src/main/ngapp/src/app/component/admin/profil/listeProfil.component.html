@@ -1,6 +1,6 @@
 <article>
   <div class="row justify-content-center">
-    <h2 class="col-xs-12 ">Gestion des profils</h2>
+    <h2 class="col-xs-12 ">{{'Gestion des profils' | translate}}</h2>
   </div>
   <div class="row  justify-content-center">
     <profil-search></profil-search>
@@ -10,20 +10,20 @@
       <table class="table">
         <thead class="thead-default">
         <tr>
-          <th>Identifiant</th>
-          <th>Libellé</th>
-          <th>Modifier</th>
-          <th>Supprimer</th>
+          <th>{{'Identifiant' | translate}}</th>
+          <th>{{'Libelle' | translate}}</th>
+          <th>{{'Modifier' | translate}}</th>
+          <th>{{'Supprimer' | translate}}</th>
         </tr>
         </thead>
         <tr *ngFor="let profil of profils">
           <td><span >{{profil.id}}</span></td>
           <td><span >{{profil.libelle}}</span></td>
-          <td><button (click)="edit(profil);" class="btn btn-secondary">Modifier</button></td>
+          <td><button (click)="edit(profil);" class="btn btn-secondary">{{'Modifier' | translate}}</button></td>
           <td><button (click)="delete(profil); $event.stopPropagation()" class="btn btn-danger">x</button></td>
         </tr>
       </table>
-      <button (click)="add()" class="btn btn-light">Ajouter</button>
+      <button (click)="add()" class="btn btn-light">{{'Ajouter' | translate}}</button>
     </div>
   </div>
 </article>

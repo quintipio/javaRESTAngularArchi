@@ -1,38 +1,38 @@
 <article>
-  <h2>Demande de réinitialisation de mot de passe</h2>
+  <h2>{{'Demande reinit mdp' | translate}}</h2>
 
   <form name="form" (ngSubmit)="f.form.valid && reinit()" #f="ngForm">
 
     <div class="form-group row decale">
       <div class="alert alert-success" *ngIf="message">
-        <p>Une demande a été envoyée</p>
+        <p>{{'Demande envoye' | translate}}</p>
       </div>
 
-      <label for="inputIdentifiant" class="col-sm-3 col-form-label" *ngIf="!message">Identifiant </label>
+      <label for="inputIdentifiant" class="col-sm-3 col-form-label" *ngIf="!message"> {{'Identifiant' | translate}}</label>
       <div class="col-xs-9" *ngIf="!message">
         <input id="inputIdentifiant" name="inputIdentifiant" class="form-control" [(ngModel)]="sso" required minlength="3" maxlength="100" #ssong="ngModel" />
         <div *ngIf="f.submitted && ssong.dirty && ssong.invalid">
           <small class="form-text text-danger" *ngIf="ssong.errors.required">
-            Ce champ est requis
+            {{'Ce champ est requis' | translate}}
           </small>
           <small class="form-text text-danger" *ngIf="ssong.errors.minlength">
-            Ce champ est trop court
+            {{'Ce champ est trop court' | translate}}
           </small>
           <small class="form-text text-danger" *ngIf="ssong.errors.maxlength">
-            Ce champ est trop long
+            {{'Ce champ est trop long' | translate}}
           </small>
         </div>
       </div>
     </div>
 
     <div class="form-group row decale" *ngIf="!message">
-      Si votre identifiant est reconnu un mail avec un lien pour réactiver votre compte vous seras envoyer sur l'adresse mail associé à votre compte
+      {{'msgActivation' | translate}}
     </div>
 
     <div class="form-group row center-text">
       <div class="offset-xs-3 col-xs-9">
-        <button class="btn btn-primary" *ngIf="!message" [disabled]="!f.form.valid">Demander une réinitialisation</button>
-        <button (click)="retour()" class="btn btn-secondary" *ngIf="message">Retour</button>
+        <button class="btn btn-primary" *ngIf="!message" [disabled]="!f.form.valid">{{'demandereinit' | translate}}</button>
+        <button (click)="retour()" class="btn btn-secondary" *ngIf="message">{{'Retour' | translate}}</button>
       </div>
     </div>
 

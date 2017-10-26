@@ -1,6 +1,9 @@
 package fr.quintipio.javarestangulararchi.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="PROFIL")
@@ -10,7 +13,8 @@ public class Profil {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     Long id;
 
-    @Column(name="libelle", length=30, unique=true, nullable=false)
+    @Column(name="libelle", length=100,  unique=true, nullable=false)
+    @Size(min = 2, max = 100)
     String libelle;
 
     public Profil() {

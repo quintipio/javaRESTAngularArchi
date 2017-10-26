@@ -8,11 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+/**
+ * Configuration du serveur pour l'envoi des mails à partir des templates
+ */
 @Configuration
 public class ThymeleafConfiguration {
 
-    @SuppressWarnings("unused")
-    private final Logger log = LoggerFactory.getLogger(ThymeleafConfiguration.class);
 
     @Bean
     @Description("Thymeleaf template resolver serving HTML 5 emails")

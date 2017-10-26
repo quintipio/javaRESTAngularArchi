@@ -32,6 +32,9 @@ import {GlobalErrorHandler} from './service/GlobalErrorHandler';
 import {ErrorComponent} from './commons/error.component';
 import {CommunicationErrorService} from './service/CommunicationErrorService';
 import {PasswordStrengthBarComponent} from './component/tools/password-strength-bar.component';
+import {TranslatePipe} from './translate/translate.pipe';
+import {TRANSLATION_PROVIDERS} from './translate/translation';
+import {TranslateService} from './translate/translate.service';
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -52,6 +55,7 @@ export function authHttpServiceFactory(http: Http) {
     AppRoutingModule
   ],
   declarations: [
+    TranslatePipe,
     PasswordStrengthBarComponent,
 
     AppComponent,
@@ -76,6 +80,7 @@ export function authHttpServiceFactory(http: Http) {
   providers: [
     {provide: AuthHttp, useFactory: authHttpServiceFactory, deps: [Http]},
     {provide: ErrorHandler, useClass: GlobalErrorHandler},
+    TRANSLATION_PROVIDERS, TranslateService,
     CommunicationErrorService,
     ProfilService,
     AuthenticationService,

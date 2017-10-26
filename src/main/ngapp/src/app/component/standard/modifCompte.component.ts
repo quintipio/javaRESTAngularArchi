@@ -3,6 +3,8 @@ import {StandardService} from '../../service/StandardService';
 import {User} from '../../model/User';
 import {UserService} from '../../service/user.service';
 import {Router} from '@angular/router';
+import {TranslateService} from '../../translate/translate.service';
+import {LANGUES_DISPO} from '../../translate/translation';
 
 @Component({
   selector:'modif-compte',
@@ -21,7 +23,8 @@ export class ModifCompteComponent implements OnInit{
 
   constructor(private standardService : StandardService,
               private userService : UserService,
-              private router : Router) {}
+              private router : Router,
+              private _translate : TranslateService) {}
 
   ngOnInit(): void {
     this.standardService.getData().subscribe(res => this.utilisateur = res);
@@ -36,7 +39,7 @@ export class ModifCompteComponent implements OnInit{
     if(!this.errorMdp) {
       this.standardService.updatePassword(this.oldPass,this.newPass).then(res => {
         if(!res) {
-          this.error = "L'ancien mot de passe n'est pas correct";
+          this.error = this._translate.instant('Ancien mdp incorrect');
         }
       });
     }

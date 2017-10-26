@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Réinitialisation du mot de passe</title>
+        <title th:text="#{mail.titre.actverCompte}"></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-    <p>
-       Bonjour
+    <p th:text="#{mail.bonjour}">
         <span th:text="${user.sso}">Utilisateur</span>
     </p>
-    <p>
-        Pour activer votre compte, cliquez içi :
+    <p th:text="#{mail.texte.activerCompte}">
+
     </p>
     <p>
         <a th:href="@{|${baseurl}/activerCompte?key=${user.link}|}"

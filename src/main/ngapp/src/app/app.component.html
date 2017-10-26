@@ -1,60 +1,45 @@
 
+
+
       <nav class="navbar navbar-expand-sm navbar-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" routerLink="/accueil" routerLinkActive="active">Accueil</a>
+        <a class="navbar-brand" routerLink="/accueil" routerLinkActive="active">{{'Accueil' | translate}}</a>
         <div class="collapse navbar-collapse" id="nav-content">
           <ul class="navbar-nav" >
 
             <li class="nav-item dropdown mr-auto" *ngIf="isConnected">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="subMenuUser" role="button" aria-haspopup="true" aria-expanded="false"><b>Bonjour {{userLogin}}</b></a>
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="subMenuUser" role="button" aria-haspopup="true" aria-expanded="false"><b>{{'Bonjour' | translate}} {{userLogin}}</b></a>
               <div class="dropdown-menu" aria-labelledby="subMenuUser">
-                <a class="nav-link" routerLink="/monCompte"  routerLinkActive="active">Mon compte</a>
-                <button type="button" class="btn btn-secondary btn-lg" (click)="logout()" *ngIf="isConnected">Déconnexion</button>
+                <a class="nav-link" routerLink="/monCompte"  routerLinkActive="active">{{'Mon compte' | translate}}</a>
+                <button type="button" class="btn btn-secondary btn-lg" (click)="logout()" *ngIf="isConnected">{{'Deconnexion'
+                  | translate}}</button>
               </div>
             </li>
 
-            <li class="nav-item"><a class="nav-link" routerLink="/pageUtilisateur" routerLinkActive="active">Page utilisateur</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/pageUtilisateur" routerLinkActive="active">{{'Page utilisateur' | translate}}</a></li>
 
             <li class="nav-item dropdown" *ngIf="isAdminUser">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="subMenuadmin" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="subMenuadmin" role="button" aria-haspopup="true" aria-expanded="false">{{'Administration' | translate}}</a>
               <div class="dropdown-menu" aria-labelledby="subMenuadmin">
-                <a class="nav-link" routerLink="/pageAdmin"  routerLinkActive="active">Accueil admin</a>
-                <a class="nav-link" routerLink="/profils" routerLinkActive="active">Gestion des profils</a>
+                <a class="nav-link" routerLink="/pageAdmin"  routerLinkActive="active">{{'Accueil admin' | translate}}</a>
+                <a class="nav-link" routerLink="/profils" routerLinkActive="active">{{'Gestion des profils' | translate}}</a>
               </div>
             </li>
 
-
-
           </ul>
-
-
         </div>
 
-        <button type="button" class="btn btn-primary btn-lg" (click)="goToConnect()"  *ngIf="!isConnected">Connexion</button>
+        <button type="button" class="btn btn-primary btn-lg" (click)="goToConnect()"  *ngIf="!isConnected">{{'Connexion' | translate}}</button>
+
+        <div class="btn-group decale">
+          <button *ngFor="let lang of supportedLanguages" (click)="selectLang(lang.value)" class="btn" [class.btn-primary]="isCurrentLang(lang.value)">
+            {{lang.display}}
+          </button>
+        </div>
 
       </nav>
-      <!--data-toggle="modal" data-target="#connexion"-->
-      <!--
-          <div class="modal fade" id="connexion" [style.display]="showModal ? 'block':'none'" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" >
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <h4 class="modal-title" id="modalLabel">Connexion</h4>
-                </div>
-                <div class="modal-body">
-                  <login></login>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                </div>
-              </div>
-            </div>
-          </div>-->
 
 <error-component></error-component>
 <section class="container center-text">

@@ -1,6 +1,7 @@
 package fr.quintipio.javarestangulararchi.controller;
 
 import fr.quintipio.javarestangulararchi.model.Utilisateur;
+import fr.quintipio.javarestangulararchi.service.MessageByLocaleService;
 import fr.quintipio.javarestangulararchi.service.UserService;
 import fr.quintipio.javarestangulararchi.utils.SecurityUtils;
 import org.slf4j.Logger;
@@ -27,9 +28,12 @@ public class StandardController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private MessageByLocaleService messageByLocaleService;
+
     @RequestMapping(value = "/accueil", method = RequestMethod.GET)
     public ResponseEntity<String> getAccueil() {
-        return ResponseEntity.ok("Bienvenue sur la page d'accueil du compte utilisateur");
+        return ResponseEntity.ok(messageByLocaleService.getMessage("accueilStandard"));
     }
 
     @RequestMapping(value="/updateUser", method = RequestMethod.GET)
@@ -41,6 +45,7 @@ public class StandardController {
             user.setMotDePasse(null);
             user.setUserProfiles(null);
             user.setActive(null);
+            user.setLink(null);
             return ResponseEntity.ok(user);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -55,6 +60,7 @@ public class StandardController {
             userToUpdate.setEmail(user.getEmail());
             userToUpdate.setNom(user.getNom());
             userToUpdate.setPrenom(user.getPrenom());
+            userToUpdate.setLangue(user.getLangue());
             Utilisateur userupdate = userService.updateUser(userToUpdate);
             if(userupdate != null) {
                 log.info(user+" met à jour ses informations personnelles");
@@ -65,6 +71,27 @@ public class StandardController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @RequestMapping(value="/updateLangue", method = RequestMethod.GET)
+    public ResponseEntity updateLangue(@RequestParam("langueUser") String langue) {
+        String sso = SecurityUtils.getCurrentUserLogin();
+        Utilisateur user = userService.findBySso(sso);
+        if(user != null) {
+            user.setLangue(langue);
+            userService.updateUser(user);
+            log.info("L'utilisateur "+user.getSso()+" id:"+user.getId()+" change sa langue en"+langue);
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/getLangue", method = RequestMethod.GET)
+    public ResponseEntity getLangue() {
+        String sso = SecurityUtils.getCurrentUserLogin();
+        Utilisateur user = userService.findBySso(sso);
+        if(user != null) {
+            return ResponseEntity.ok(user.getLangue());
+        }
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
 
     @RequestMapping(value="/updatePassword",method = RequestMethod.GET)
     public ResponseEntity<String> updatePassword(@RequestParam("oldPass") String oldPass,@RequestParam("newPass") String newPass) {
