@@ -24,4 +24,6 @@ public interface UserService {
 
     Utilisateur findByLink(String link);
 
+    Boolean checkSsoUserExist(String sso, Long id);
+
 }

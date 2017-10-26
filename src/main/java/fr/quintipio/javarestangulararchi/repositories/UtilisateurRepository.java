@@ -3,6 +3,7 @@ package fr.quintipio.javarestangulararchi.repositories;
 
 import fr.quintipio.javarestangulararchi.model.Utilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,6 +14,10 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
     List<Utilisateur> findBySsoLike(String sso);
 
     Utilisateur findBySso(String sso);
+
+    Integer countUtilisateursBySsoAndIdNot(String sso,Long id);
+
+    Integer countUtilisateursBySso(String sso);
 
     Integer countUtilisateurByLink(String link);
 

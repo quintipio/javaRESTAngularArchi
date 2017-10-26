@@ -62,5 +62,14 @@ public class UserServiceImpl implements UserService {
         return utilisateurRepository.findUtilisateurByLink(link);
     }
 
+    @Override
+    public Boolean checkSsoUserExist(String sso, Long id) {
+        if(id != null) {
+            return utilisateurRepository.countUtilisateursBySsoAndIdNot(sso,id) > 0;
+        }else {
+            return utilisateurRepository.countUtilisateursBySso(sso) > 0;
+        }
+    }
+
 
 }
