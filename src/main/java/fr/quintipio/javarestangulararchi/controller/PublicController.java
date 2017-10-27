@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -60,20 +61,21 @@ public class PublicController {
         log.info("Identifiant "+sso+" - Demande reinit Mot de passe");
 
         if(user != null) {
-            String token = null;
+            String token;
             do {
                 token = UUID.randomUUID().toString();
                 log.debug(token);
-            }while(userService.linkAlreadyExist(token));
+            }while(userService.linkResetPasswordAlreadyExist(token));
 
-            user.setLink(token);
+            user.setLinkResetPassword(token);
+            user.setLastModifiedDate(new Date());
             userService.updateUser(user);
-            log.info("L'utilisateur "+sso+" id:"+user.getId()+" à demander la réinitialisation du mot de passe avec le token:"+token);
+            log.info("Demande reinit mdp pour : "+user);
 
             if(!mailService.sendEmailFromTemplate(user,Constantes.TEMPLATE_RESET_PASSWORD, messageByLocaleService.getMessage("mail.titre.reinitMdp"))) {
-                log.warn("L'utilisateur "+sso+" id:"+user.getId()+" à échouer sur l'envoi du mail:"+user.getEmail()+" pour réinitialiser son mot de passe");
+                log.warn("Echec envoi du mail pour "+user);
 
-                user.setLink(null);
+                user.setLinkResetPassword(null);
                 userService.updateUser(user);
             }
         }
@@ -89,17 +91,18 @@ public class PublicController {
      */
     @RequestMapping(value = "/reinitMdp", method = RequestMethod.GET)
     public ResponseEntity reinitMdp(@RequestParam("link") String link,@RequestParam("newmdp") String newmdp) {
-        log.info("Le token "+link+" est lancé pour réinitialiser son mot de passe");
-        Utilisateur user = userService.findByLink(link);
+        log.info("Reinitialisation du mot de passe pour "+link);
+        Utilisateur user = userService.findByLinkResetPassword(link);
         if(user != null && user.getActive()) {
             String encodeMdp = passwordEncoder.encode(newmdp);
             user.setMotDePasse(encodeMdp);
-            user.setLink(null);
+            user.setLinkResetPassword(null);
+            user.setLastModifiedDate(new Date());
             userService.updateUser(user);
-            log.info("L'utilisateur id:"+user.getId()+" sso:"+user.getSso()+"  réinitialisé son mot de passe");
+            log.info("Reinitialisation du mot de passe pour "+user);
             return new ResponseEntity(HttpStatus.OK);
         }
-        log.warn("Le token "+link+" à écohuer réinitialiser son mot de passe");
+        log.warn("Echec reinitialisation du mot de passe pour "+link);
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
@@ -111,17 +114,18 @@ public class PublicController {
      */
     @RequestMapping(value = "/activerCompte", method = RequestMethod.GET)
     public ResponseEntity activerCompte(@RequestParam("link") String link) {
-        Utilisateur user = userService.findByLink(link);
-        log.info("Activation de l'utilisateur avec le token"+link);
+        Utilisateur user = userService.findByLinkActivation(link);
+        log.info("Activation user : "+link);
         if(user != null) {
             user.setActive(true);
-            user.setLink(null);
+            user.setLinkActivation(null);
+            user.setLastModifiedDate(new Date());
             userService.updateUser(user);
-            log.info("Utilisateur id:"+user.getId()+" est activé");
+            log.info("Activation user : "+user);
             return new ResponseEntity(HttpStatus.OK);
         }
 
-        log.warn("Echec de l'activation de l'utilisateur avec le token"+link);
+        log.warn("Echec activation user : "+link);
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 

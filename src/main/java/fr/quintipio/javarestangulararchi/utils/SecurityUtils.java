@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Random;
 
-
+/**
+ * Utilitaire lié à la sécurité
+ */
 public final class SecurityUtils {
 
     private SecurityUtils() {

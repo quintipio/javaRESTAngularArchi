@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Sur définition pour adapter la couche sécurité aux entités
+ */
 @Component
 public class AppUserDetailService implements UserDetailsService  {
 
@@ -22,6 +25,12 @@ public class AppUserDetailService implements UserDetailsService  {
     @Autowired
     private MessageByLocaleService messageByLocaleService;
 
+    /**
+     * Charge un utilisateur par son login
+     * @param s le login
+     * @return l'utilisateur trouvé et paramètré
+     * @throws UsernameNotFoundException en cas d'utilisateur introuvable
+     */
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Utilisateur user = userRepository.findBySso(s);

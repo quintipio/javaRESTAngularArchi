@@ -13,8 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.Date;
 
+/**
+ * Controleurs général à tout les utilisateurs
+ */
 @RestController
 @CrossOrigin("*")
 @RequestMapping(Constantes.URL_USER)
@@ -32,11 +35,19 @@ public class StandardController {
     @Autowired
     private MessageByLocaleService messageByLocaleService;
 
+    /**
+     * Message d'accueil de la page utilisateur
+     * @return
+     */
     @RequestMapping(value = "/accueil", method = RequestMethod.GET)
     public ResponseEntity<String> getAccueil() {
         return ResponseEntity.ok(messageByLocaleService.getMessage("accueilStandard"));
     }
 
+    /**
+     * Récupère les infos personnelles d'un utilisateur
+     * @return
+     */
     @RequestMapping(value="/updateUser", method = RequestMethod.GET)
     public ResponseEntity<Utilisateur> getInfoUser() {
         String sso = SecurityUtils.getCurrentUserLogin();
@@ -46,13 +57,18 @@ public class StandardController {
             user.setMotDePasse(null);
             user.setUserProfiles(null);
             user.setActive(null);
-            user.setLink(null);
+            user.setLinkActivation(null);
             return ResponseEntity.ok(user);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
 
+    /**
+     * Met à jour les infos personnelles d'un utilisateur
+     * @param user les nouvelles infos de l'utilisateur
+     * @return le nouvel utilisateur
+     */
     @RequestMapping(value="/updateUser",method = RequestMethod.PUT)
     public ResponseEntity<Utilisateur> updateUser(@RequestBody Utilisateur user) {
         String sso = SecurityUtils.getCurrentUserLogin();
@@ -62,28 +78,39 @@ public class StandardController {
             userToUpdate.setNom(user.getNom());
             userToUpdate.setPrenom(user.getPrenom());
             userToUpdate.setLangue(user.getLangue());
+            userToUpdate.setLastModifiedDate(new Date());
             Utilisateur userupdate = userService.updateUser(userToUpdate);
             if(userupdate != null) {
-                log.info(user+" met à jour ses informations personnelles");
+                log.info("Update des infos personnelles de "+user+" en "+userToUpdate);
                 return ResponseEntity.ok(userupdate);
             }
         }
-        log.warn("echec de mises à jour des informations personnelles de "+sso);
+        log.warn("Echec update infos personnelles : "+sso);
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * Met à jour la langue d'un utilisateur
+     * @param langue le diminutif de la nouvelle langue
+     * @return
+     */
     @RequestMapping(value="/updateLangue", method = RequestMethod.GET)
     public ResponseEntity updateLangue(@RequestParam("langueUser") String langue) {
         String sso = SecurityUtils.getCurrentUserLogin();
         Utilisateur user = userService.findBySso(sso);
         if(user != null) {
             user.setLangue(langue);
+            user.setLastModifiedDate(new Date());
             userService.updateUser(user);
-            log.info("L'utilisateur "+user.getSso()+" id:"+user.getId()+" change sa langue en"+langue);
+            log.info("Changement de langues de : "+user);
         }
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Retourne la langue d'un utilisateur
+     * @return
+     */
     @RequestMapping(value="/getLangue", method = RequestMethod.GET)
     public ResponseEntity getLangue() {
         String sso = SecurityUtils.getCurrentUserLogin();
@@ -94,6 +121,12 @@ public class StandardController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Met à jour le mot de passe d'un utilisateur
+     * @param oldPass l'ancien mot de passe pour controle
+     * @param newPass le nouveau mot de passe
+     * @return ok si ok sinon pok (mauvais ancien mot de passe)
+     */
     @RequestMapping(value="/updatePassword",method = RequestMethod.GET)
     public ResponseEntity<String> updatePassword(@RequestParam("oldPass") String oldPass,@RequestParam("newPass") String newPass) {
         String sso = SecurityUtils.getCurrentUserLogin();
@@ -101,24 +134,31 @@ public class StandardController {
         if(user != null) {
             if(passwordEncoder.matches(oldPass,user.getMotDePasse())) {
                 user.setMotDePasse(passwordEncoder.encode(newPass));
+                user.setLastModifiedDate(new Date());
                 userService.updateUser(user);
-                log.info(user+" met à jour son mot de passe");
+                log.info("Update password : "+user);
                 return ResponseEntity.ok("ok");
             } else {
                 return ResponseEntity.ok("pok");
             }
         }
-        log.warn("echec de mises à jour du mot de passe de "+sso);
+        log.warn("Echec update password de "+sso);
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * Supprime le compte d'un utilisateur
+     * @return
+     */
     @RequestMapping(value = "/supprimerCompte", method = RequestMethod.DELETE)
     public ResponseEntity deleteCompte() {
         String sso = SecurityUtils.getCurrentUserLogin();
         Utilisateur user = userService.findBySso(sso);
         if(user != null) {
             userService.deleteUser(user.getId());
+            log.info("Effacement du compte : "+user);
         }
+        log.info("Echec - effacement du compte : "+sso);
         return new ResponseEntity(HttpStatus.OK);
     }
 

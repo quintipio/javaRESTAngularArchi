@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controleur générale pour un administrateur
+ */
 @RestController
 @CrossOrigin("*")
 @RequestMapping(Constantes.URL_ADMIN)
@@ -20,6 +23,10 @@ public class AdminController {
     @Autowired
     private MessageByLocaleService messageByLocaleService;
 
+    /**
+     * Un message d'accueil pour l'administrateur
+     * @return
+     */
     @RequestMapping(value = "/accueil", method = RequestMethod.GET)
     public ResponseEntity<String> getAccueil() {
         return ResponseEntity.ok(messageByLocaleService.getMessage("accueilAdmin"));

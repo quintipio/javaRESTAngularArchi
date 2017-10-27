@@ -1,6 +1,7 @@
 package fr.quintipio.javarestangulararchi.model;
 
 import fr.quintipio.javarestangulararchi.configuration.Constantes;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="UTILISATEUR")
-public class Utilisateur {
+public class Utilisateur extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,10 +26,15 @@ public class Utilisateur {
     @Pattern(regexp = Constantes.LOGIN_REGEX)
     String sso;
 
+    @JsonIgnore
+    @Column(name="linkActivation", unique=true)
+    String linkActivation;
 
-    @Column(name="link", unique=true, nullable=true)
-    String link;
+    @JsonIgnore
+    @Column(name="linkResetPassword", unique=true)
+    String linkResetPassword;
 
+    @JsonIgnore
     @NotNull
     @Column(name="active",nullable = false)
     Boolean isActive;
@@ -74,7 +80,6 @@ public class Utilisateur {
 
 
     public Utilisateur() {
-
     }
 
     public Long getId() {
@@ -135,12 +140,12 @@ public class Utilisateur {
     }
 
 
-    public String getLink() {
-        return link;
+    public String getLinkActivation() {
+        return linkActivation;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setLinkActivation(String linkActivation) {
+        this.linkActivation = linkActivation;
     }
 
 
@@ -159,6 +164,15 @@ public class Utilisateur {
 
     public void setLangue(String langue) {
         this.langue = langue;
+    }
+
+
+    public String getLinkResetPassword() {
+        return linkResetPassword;
+    }
+
+    public void setLinkResetPassword(String linkResetPassword) {
+        this.linkResetPassword = linkResetPassword;
     }
 
     @Override
@@ -184,7 +198,8 @@ public class Utilisateur {
         return "Utilisateur{" +
                 "id=" + id +
                 ", sso='" + sso + '\'' +
-                ", link='" + link + '\'' +
+                ", linkActivation='" + linkActivation + '\'' +
+                ", linkResetPassword='" + linkResetPassword + '\'' +
                 ", isActive=" + isActive +
                 ", email='" + email + '\'' +
                 ", motDePasse='" + motDePasse + '\'' +

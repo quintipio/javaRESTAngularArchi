@@ -54,7 +54,8 @@ public class Profil {
     @Override
     public String toString() {
         return "Profil{" +
-                "libelle='" + libelle + '\'' +
+                "id=" + id +
+                ", libelle='" + libelle + '\'' +
                 '}';
     }
 }
