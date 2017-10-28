@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location }                 from '@angular/common';
 import { Profil} from "../../../model/Profil";
@@ -21,11 +21,9 @@ export class EditProfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {this.profil.id = +params['id'] || null});
-    console.log(this.profil.id);
     this.isModif = this.profil.id != null;
     if(this.isModif) {
       this.profilService.getProfil(this.profil.id).subscribe( profil => this.profil = profil);
-      console.log(this.profil);
     }
   }
 

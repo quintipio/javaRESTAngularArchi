@@ -33,4 +33,20 @@ export class AdminService {
       .toPromise()
       .then(() => null);
   }
+
+  checkSso(sso:string) : Observable<boolean> {
+    return null;
+  }
+
+  getUser(id:number) :Observable<User>{
+    return null;
+  }
+
+  updateUser(user:User) {
+    return ;
+  }
+
+  createUser(user: User) {
+    return ;
+  }
 }

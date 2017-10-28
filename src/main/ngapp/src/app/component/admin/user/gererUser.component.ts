@@ -5,8 +5,8 @@ import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-gerer-user',
-    templateUrl: './gererUser.component.html',encapsulation: ViewEncapsulation.None,
-
+    templateUrl: './gererUser.component.html',
+  encapsulation: ViewEncapsulation.None,
 })
 export class GererUserComponent implements OnInit {
 
