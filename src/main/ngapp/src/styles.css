@@ -16,6 +16,10 @@
   margin-top:15px;
 }
 
+.marge{
+  margin:20px;
+}
+
 /**FORMS**/
 
 input.ng-valid[required] {

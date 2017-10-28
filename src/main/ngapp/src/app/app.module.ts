@@ -35,6 +35,9 @@ import {PasswordStrengthBarComponent} from './component/tools/password-strength-
 import {TranslatePipe} from './translate/translate.pipe';
 import {TRANSLATION_PROVIDERS} from './translate/translation';
 import {TranslateService} from './translate/translate.service';
+import {GererUserComponent} from "./component/admin/user/gererUser.component";
+import {DataTableModule} from "primeng/primeng";
+import {SearchUserComponent} from "./component/admin/user/searchUser.component";
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -52,7 +55,8 @@ export function authHttpServiceFactory(http: Http) {
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DataTableModule
   ],
   declarations: [
     TranslatePipe,
@@ -75,6 +79,8 @@ export function authHttpServiceFactory(http: Http) {
     ListeProfilComponent,
     EditProfilComponent,
     SearchprofilComponent,
+    GererUserComponent,
+    SearchUserComponent
 
   ],
   providers: [

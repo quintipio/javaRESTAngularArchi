@@ -40,6 +40,9 @@ export const LANG_EN_TRANS = {
 
   //admin
   'Gestion des profils': 'Manage profiles',
+  'Gestion des utilisateurs' : 'Manage Users',
+  'Sso' : 'Login',
+  'noData' : 'No data',
 
   //erreur
   'Le serveur ne repond pas': 'The server did not respond',
@@ -72,6 +75,7 @@ export const LANG_EN_TRANS = {
   'Supprimer': 'Delete',
   'Ajouter': 'Add',
   'Sauvegarder': 'Save',
+  'creerCompte' : 'Create an account',
 
   //composants & champs
   'Force': 'Strength',

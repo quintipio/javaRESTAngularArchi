@@ -4,10 +4,10 @@ export class User {
   id:number;
   sso:string;
   email:string;
-  password:string;
+  motDePasse:string;
   nom:string;
   prenom:string;
-  profils:Profil[];
-  active:boolean;
+  userProfiles:Profil[];
+  isActive:boolean;
   langue:string;
 }

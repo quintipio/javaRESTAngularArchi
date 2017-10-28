@@ -1,0 +1,37 @@
+<article>
+  <div class="row justify-content-center">
+    <h2 class="col-xs-12 ">{{'Gestion des utilisateurs' | translate}}</h2>
+  </div>
+  <div class="row  justify-content-center">
+    <user-search></user-search>
+  </div>
+
+<div class="row marge">
+  <div class="col-sm-12">
+    <p-dataTable [value]="users" [rows]="10" [paginator]="true" [responsive]="true">
+      <p-column field="sso" header="{{'Sso' | translate}}"></p-column>
+      <p-column field="nom" header="{{'Nom' | translate}}"></p-column>
+      <p-column field="prenom" header="{{'Prenom' | translate}}"></p-column>
+      <p-column field="email" header="{{'Email' | translate}}"></p-column>
+      <p-column header="{{'Modifier' | translate}}">
+        <ng-template let-user="rowData" pTemplate="body">
+          <button type="button" pButton (click)="modify(user)" icon="fa-search" class="btn btn-info">{{'Modifier' | translate}}</button>
+        </ng-template>
+      </p-column>
+      <p-column header="{{'Supprimer' | translate}}">
+        <ng-template let-user="rowData" pTemplate="body">
+          <button type="button" pButton (click)="delete(user)" icon="fa-search" class="btn btn-danger">X</button>
+        </ng-template>
+      </p-column>
+      <ng-template pTemplate="emptymessage">
+        {{'noData' | translate}}
+      </ng-template>
+    </p-dataTable>
+  </div>
+</div>
+<div class="row marge center-text">
+  <div class="col-sm-12">
+    <button (click)="add()" class="btn btn-light">{{'creerCompte' | translate}}</button>
+  </div>
+</div>
+</article>

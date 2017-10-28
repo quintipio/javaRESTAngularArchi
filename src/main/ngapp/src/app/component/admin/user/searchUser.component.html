@@ -1,0 +1,10 @@
+<div id="search-component">
+  <label for="search-box">{{ 'Rechercher' | translate}} :</label>
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+  <div>
+    <div *ngFor="let user of users"
+         (click)="gotoDetail(user)" class="search-result" >
+      {{user.sso}}
+    </div>
+  </div>
+</div>

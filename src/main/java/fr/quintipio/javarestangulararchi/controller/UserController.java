@@ -93,7 +93,7 @@ public class UserController extends AbstractEntity {
     public ResponseEntity<Void> delete(@PathVariable long id) {
         userService.deleteUser(id);
         log.info("Effacement de l'utilisateur d'id : "+id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     /**

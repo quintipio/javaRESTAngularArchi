@@ -40,6 +40,8 @@ export const LANG_FR_TRANS = {
 
   //admin
   'Gestion des profils': 'Gestion des profils',
+  'Gestion des utilisateurs' : 'Gestion des utilisateurs',
+  'Sso' : 'Login',
 
   //erreur
   'Le serveur ne repond pas': 'Le serveur ne répond pas',
@@ -72,11 +74,13 @@ export const LANG_FR_TRANS = {
   'Supprimer': 'Supprimer',
   'Ajouter': 'Ajouter',
   'Sauvegarder': 'Sauvegarder',
+  'creerCompte' : 'Créer un compte',
 
   //composants & champs
   'Force': 'Force',
   'Rechercher': 'Rechercher',
   'Libelle': 'Libellé',
+  'noData' : 'Aucune donnée',
 
 
   //avertissements
