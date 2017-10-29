@@ -42,6 +42,9 @@ export const LANG_FR_TRANS = {
   'Gestion des profils': 'Gestion des profils',
   'Gestion des utilisateurs' : 'Gestion des utilisateurs',
   'Sso' : 'Login',
+  'Compte active' : 'Compte activé',
+  'Compte desactive' : 'Compte désactivé',
+  'Activation' : 'Activation',
 
   //erreur
   'Le serveur ne repond pas': 'Le serveur ne répond pas',

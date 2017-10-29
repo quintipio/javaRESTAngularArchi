@@ -34,4 +34,14 @@ export class GererUserComponent implements OnInit {
   delete(user : User) {
     this.adminService.deleteUser(user.id).then(()=> this.getUsers());
   }
+
+  activate(user  : User) {
+    this.adminService.activerUser(user);
+    user.isActive = !user.isActive;
+  }
+
+  desactivate(user : User) {
+    this.adminService.desactiverUser(user);
+    user.isActive = !user.isActive;
+  }
 }

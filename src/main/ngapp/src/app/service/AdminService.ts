@@ -49,4 +49,14 @@ export class AdminService {
   createUser(user: User) {
     return ;
   }
+
+  activerUser(user : User) {
+    const url = this.adminurl+`/utilisateur/activer/${user.id}`;
+    this.http.get(url).subscribe();
+  }
+
+  desactiverUser(user: User){
+    const url = this.adminurl+`/utilisateur/desactiver/${user.id}`;
+    this.http.get(url).subscribe();
+  }
 }

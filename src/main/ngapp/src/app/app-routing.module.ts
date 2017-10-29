@@ -33,6 +33,7 @@ const routes: Routes = [
   { path: 'profils',  component: ListeProfilComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'profils/edit',  component: EditProfilComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'users',  component: GererUserComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+  { path: 'user/edit',  component: GererUserComponent, canActivate: [AuthGuard, AdminAuthGuard] },
 ];
 
 @NgModule({

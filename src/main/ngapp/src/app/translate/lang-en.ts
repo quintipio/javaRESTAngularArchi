@@ -43,6 +43,10 @@ export const LANG_EN_TRANS = {
   'Gestion des utilisateurs' : 'Manage Users',
   'Sso' : 'Login',
   'noData' : 'No data',
+  'Compte active' : 'Activated account',
+  'Compte desactive' : 'Desactivated account',
+  'Activation' : 'Activation',
+
 
   //erreur
   'Le serveur ne repond pas': 'The server did not respond',
