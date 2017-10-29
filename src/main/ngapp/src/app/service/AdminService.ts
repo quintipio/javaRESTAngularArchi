@@ -1,4 +1,5 @@
 import { Injectable }    from '@angular/core';
+import { Response } from '@angular/http';
 import {AuthHttp} from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import {TranslateService} from '../translate/translate.service';
@@ -34,12 +35,14 @@ export class AdminService {
       .then(() => null);
   }
 
-  checkSso(sso:string) : Observable<boolean> {
-    return null;
+  checkSso(sso:string,id:number) : Observable<boolean> {
+    const url = this.adminurl+`/utilisateur/checkSso?id=${id}&sso=${sso}`;
+    return this.http.get(url).map(res => res.text().toLocaleUpperCase()=="TRUE");
   }
 
   getUser(id:number) :Observable<User>{
-    return null;
+    const url = `${this.adminurl}/utilisateur/${id}`;
+    return this.http.get(url).map((res:Response) => res.json() as User);
   }
 
   updateUser(user:User) {
@@ -57,6 +60,11 @@ export class AdminService {
 
   desactiverUser(user: User){
     const url = this.adminurl+`/utilisateur/desactiver/${user.id}`;
+    this.http.get(url).subscribe();
+  }
+
+  changeMdp(mdp: string, id:number) {
+    const url = this.adminurl+`/utilisateur/updatePassword?id=${id}&mdp=${mdp}`;
     this.http.get(url).subscribe();
   }
 }

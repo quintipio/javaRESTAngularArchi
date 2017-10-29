@@ -1,8 +1,6 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import {DataTableModule,SharedModule} from 'primeng/primeng';
-
 import {ListeProfilComponent} from "./component/admin/profil/listeProfil.component";
 import {EditProfilComponent} from "./component/admin/profil/editProfil.component";
 import {PageUtilisateurComponent} from "./component/standard/pageUtilisateur.component";
@@ -16,6 +14,7 @@ import {PageDemandeReinitMdpComponent} from './component/public/pageDemandeReini
 import {PageReinitMdpComponent} from './component/public/pageReinitMdp.component';
 import {PageActivationCompteComponent} from './component/public/pageActivationCompte.component';
 import {GererUserComponent} from "./component/admin/user/gererUser.component";
+import {EditUserComponent} from "./component/admin/user/editUser.component";
 
 const routes: Routes = [
   { path: 'connexion',component: ConnexionComponent },
@@ -33,7 +32,7 @@ const routes: Routes = [
   { path: 'profils',  component: ListeProfilComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'profils/edit',  component: EditProfilComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'users',  component: GererUserComponent, canActivate: [AuthGuard, AdminAuthGuard] },
-  { path: 'user/edit',  component: GererUserComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+  { path: 'user/edit',  component: EditUserComponent, canActivate: [AuthGuard, AdminAuthGuard] },
 ];
 
 @NgModule({

@@ -20,6 +20,10 @@
   margin:20px;
 }
 
+.largeMultiSelect{
+  width:200px !important;
+}
+
 /**FORMS**/
 
 input.ng-valid[required] {

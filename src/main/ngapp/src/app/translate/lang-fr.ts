@@ -45,6 +45,10 @@ export const LANG_FR_TRANS = {
   'Compte active' : 'Compte activé',
   'Compte desactive' : 'Compte désactivé',
   'Activation' : 'Activation',
+  'Activer le compte' : 'Activer le compte',
+  'Langue' : 'Langue',
+  'Profil' : 'Profil',
+  'CreerUser' : 'Créer un utilisateur',
 
   //erreur
   'Le serveur ne repond pas': 'Le serveur ne répond pas',
@@ -60,6 +64,8 @@ export const LANG_FR_TRANS = {
   'Mot de passe requis': 'Mot de passe requis',
   'Mot de passe oublie': 'Mot de passe oublié',
   'Erreur lien activation': 'Erreur sur votre lien d\'activation',
+  'ErreurPatternSso' : 'Ce champ doit uniquement comporter des lettres ou des chiffres',
+  'SsoExist' : 'This login already exist',
 
   //Boutons
   'Deconnexion': 'Deconnexion',

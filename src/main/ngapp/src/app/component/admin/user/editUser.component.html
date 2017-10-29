@@ -1,0 +1,195 @@
+<article>
+  <h2 *ngIf="isModif">{{user.sso}}</h2>
+  <h2 *ngIf="!isModif">{{'CreerUser' | translate}}</h2>
+  <form name="formSaveCompte" (ngSubmit)="f.form.valid && save()" #f="ngForm">
+    <div class="form-group row decale">
+      <label for="inputLibelleSso" class="col-sm-3 col-form-label ">{{'Sso' | translate}} : </label>
+      <div class="col-xs-9">
+        <input id="inputLibelleSso" name="inputLibelleSso" class="form-control" (change)="checkSso()" [(ngModel)]="user.sso" required minlength="3" maxlength="100" pattern="^[_'.@A-Za-z0-9-]*$" #sso="ngModel" />
+        <div *ngIf="f.submitted && sso.dirty && sso.invalid">
+          <small class="form-text text-danger" *ngIf="sso.errors.required">
+            {{'Ce champ est requis' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="sso.errors.minlength">
+            {{'Ce champ est trop court' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="sso.errors.maxlength">
+            {{'Ce champ est trop long' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="sso.errors.pattern">
+            {{'ErreurPatternSso' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="isSsoExist">
+            {{'SsoExist' | translate}}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row decale">
+      <label for="inputLibelleNom" class="col-sm-3 col-form-label ">{{'Nom' | translate}} : </label>
+      <div class="col-xs-9">
+        <input id="inputLibelleNom" name="inputLibelleNom" class="form-control" [(ngModel)]="user.nom" required minlength="2" maxlength="100" #nom="ngModel" />
+        <div *ngIf="f.submitted && nom.dirty && nom.invalid">
+          <small class="form-text text-danger" *ngIf="nom.errors.required">
+            {{'Ce champ est requis' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="nom.errors.minlength">
+            {{'Ce champ est trop court' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="nom.errors.maxlength">
+            {{'Ce champ est trop long' | translate}}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row decale">
+      <label for="inputLibellePrenom" class="col-sm-3 col-form-label">{{'Prenom' | translate}} : </label>
+      <div class="col-xs-9">
+        <input id="inputLibellePrenom" name="inputLibellePrenom" class="form-control" [(ngModel)]="user.prenom" required minlength="2" maxlength="100" #prenom="ngModel" />
+        <div *ngIf="f.submitted && prenom.dirty && prenom.invalid">
+          <small class="form-text text-danger" *ngIf="prenom.errors.required">
+            {{'Ce champ est requis' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="prenom.errors.minlength">
+            {{'Ce champ est trop court' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="prenom.errors.maxlength">
+            {{'Ce champ est trop long' | translate}}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row decale">
+      <label for="inputLibelleMail" class="col-sm-3 col-form-label">{{'Email' | translate}} : </label>
+      <div class="col-xs-9">
+        <input id="inputLibelleMail" name="inputLibelleMail" class="form-control" [(ngModel)]="user.email" type="email" required email minlength="5" maxlength="100" #mail="ngModel" />
+        <div *ngIf="f.submitted && mail.dirty && mail.invalid">
+          <small class="form-text text-danger" *ngIf="mail.errors.required">
+            {{'Ce champ est requis' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="mail.errors.invalid">
+            {{'Adresse mail non valide' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="mail.errors.minlength">
+            {{'Ce champ est trop court' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="mail.errors.maxlength">
+            {{'Ce champ est trop long' | translate}}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row decale">
+      <label for="inputLibelleProfils" class="col-sm-3 col-form-label">{{'Profil' | translate}} : </label>
+      <div class="col-xs-9">
+        <angular2-multiselect id="inputLibelleProfils" [data]="dropdownListProfils"
+                              [(ngModel)]="selectedItemsProfils" [ngModelOptions]="{standalone: true}"
+                              (onSelect)="onItemSelect($event)"
+                              (onDeSelect)="OnItemDeSelect($event)"
+                              [settings]="dropdownSettings"
+                              style="width: 200px!important;" class="largeMultiSelect"></angular2-multiselect>
+        <div *ngIf="f.submitted && mail.dirty && mail.invalid">
+          <small class="form-text text-danger" *ngIf="user.userProfiles != null">
+            {{'Ce champ est requis' | translate}}
+          </small>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group row decale" *ngIf="!isModif">
+      <label for="inputPassword" class="col-sm-3 col-form-label">{{'Mot de passe' | translate}} : </label>
+      <div class="col-xs-9">
+        <input id="inputPassword" name="inputPassword" class="form-control" [(ngModel)]="user.motDePasse" type="password" required minlength="6" maxlength="100" #password="ngModel" />
+        <password-strength-bar [passwordToCheck]="user.motDePasse"></password-strength-bar>
+        <div *ngIf="f.submitted && password.dirty && password.invalid">
+          <small class="form-text text-danger" *ngIf="password.errors.required">
+            {{'Ce champ est requis' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="password.errors.minlength">
+            {{'Ce champ est trop court' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="password.errors.maxlength">
+            {{'Ce champ est trop long' | translate}}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group  row decale" *ngIf="!isModif">
+      <input id="checkActive" name="checkActive" type="checkbox" [disabled]="loading" [(ngModel)]="user.isActive"/>
+      <label for="checkActive">{{'Activer le compte' | translate}}</label>
+    </div>
+
+    <div class="form-group  row decale">
+      <label for="inputLangue" class="col-sm-3 col-form-label">{{'Langue' | translate}} : </label>
+      <select id="inputLangue" [(ngModel)]="user.langue" [ngModelOptions]="{standalone: true}" class="btn">
+        <option *ngFor="let l of langues" [ngValue]="l.value">{{l.display}}</option>
+      </select>
+    </div>
+
+    <div class="form-group row center-text">
+      <div class="col-sm-12">
+        <button class="btn btn-primary" [disabled]="!f.form.valid">{{'Sauvegarder' | translate}}</button>
+      </div>
+    </div>
+
+  </form>
+  <form name="formMajPassword" (ngSubmit)="fb.form.valid && savePassword()" #fb="ngForm" *ngIf="isModif">
+
+    <h2>{{'Nouveau mot de passe' | translate}}</h2>
+
+    <div class="form-group row decale">
+      <label for="inputNewPass" class="col-sm-3 col-form-label">{{'Nouveau mot de passe' | translate}} :</label>
+      <div class="col-xs-9">
+        <input id="inputNewPass" name="inputNewPass" class="form-control" [(ngModel)]="newMdp" placeholder="{{'6 caracteres minimum' | translate}}" required minlength="6" maxlength="100" type="password" #newPassNgModel="ngModel" (change)="checkPassword()"/>
+        <password-strength-bar [passwordToCheck]="newMdp"></password-strength-bar>
+        <div *ngIf="fb.submitted && newPassNgModel.dirty && newPassNgModel.invalid">
+          <small class="form-text text-danger" *ngIf="newPassNgModel.errors.required">
+            {{'Ce champ est requis' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="newPassNgModel.errors.minlength">
+            {{'Ce champ est trop court' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="newPassNgModel.errors.maxlength">
+            {{'Ce champ est trop long' | translate}}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row decale">
+      <label for="newPassConfirm" class="col-sm-3 col-form-label">{{'Confirmation de votre mot de passe' | translate}} : </label>
+      <div class="col-xs-9">
+        <input id="newPassConfirm" name="newPassConfirm" class="form-control" [(ngModel)]="newMdpConfirm" required minlength="6" maxlength="100" type="password" #newPassconfrmNgModel="ngModel" (change)="checkPassword()" />
+        <div *ngIf="fb.submitted && newPassconfrmNgModel.dirty && newPassconfrmNgModel.invalid">
+          <small class="form-text text-danger" *ngIf="newPassconfrmNgModel.errors.required">
+            {{'Ce champ est requis' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="newPassconfrmNgModel.errors.minlength">
+            {{'Ce champ est trop court' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="newPassconfrmNgModel.errors.maxlength">
+            {{'Ce champ est trop long' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="errorMdp">
+            {{'Les mots de passe ne correpsondent pas' | translate}}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row center-text">
+      <div class="col-sm-12">
+        <button class="btn btn-primary" [disabled]="!fb.form.valid || errorMdp">{{'Changer le mot de passe' | translate}}</button>
+        <button class="btn btn-info" (click)="goBack()">{{'Retour' | translate}}</button>
+
+      </div>
+    </div>
+
+  </form>
+</article>

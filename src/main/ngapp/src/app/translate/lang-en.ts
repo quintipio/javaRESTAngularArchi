@@ -46,7 +46,10 @@ export const LANG_EN_TRANS = {
   'Compte active' : 'Activated account',
   'Compte desactive' : 'Desactivated account',
   'Activation' : 'Activation',
-
+  'Activer le compte' : 'Activate account',
+  'Langue' : 'Language',
+  'Profil' : 'Profile',
+  'CreerUser' : 'Créer an account',
 
   //erreur
   'Le serveur ne repond pas': 'The server did not respond',
@@ -62,6 +65,8 @@ export const LANG_EN_TRANS = {
   'Mot de passe requis': 'password required',
   'Mot de passe oublie': 'Forgot password',
   'Erreur lien activation': 'Error on your activation link',
+  'ErreurPatternSso' : 'This field must be write with letters or numbers',
+  'SsoExist' : 'Cet identifiant existe déjà',
 
   //Boutons
   'Deconnexion': 'Disconnect',
