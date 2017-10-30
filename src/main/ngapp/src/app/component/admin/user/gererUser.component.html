@@ -9,22 +9,22 @@
 <div class="row marge">
   <div class="col-sm-12">
     <p-dataTable [value]="users" [rows]="10" [paginator]="true" [responsive]="true">
-      <p-column field="sso" header="{{'Sso' | translate}}"></p-column>
-      <p-column field="nom" header="{{'Nom' | translate}}"></p-column>
-      <p-column field="prenom" header="{{'Prenom' | translate}}"></p-column>
-      <p-column field="email" header="{{'Email' | translate}}"></p-column>
-      <p-column header="{{'Modifier' | translate}}">
+      <p-column field="sso" header="{{'Sso' | translate}}" [style]="{'width':'15%'}"></p-column>
+      <p-column field="nom" header="{{'Nom' | translate}}"[style]="{'width':'15%'}"></p-column>
+      <p-column field="prenom" header="{{'Prenom' | translate}}" [style]="{'width':'15%'}"></p-column>
+      <p-column field="email" header="{{'Email' | translate}}" [style]="{'width':'30%'}"></p-column>
+      <p-column header="{{'Modifier' | translate}}" [style]="{'width':'20%'}">
         <ng-template let-user="rowData" pTemplate="body">
           <button type="button" pButton (click)="modify(user)" icon="fa-search" class="btn btn-info">{{'Modifier' | translate}}</button>
         </ng-template>
       </p-column>
-      <p-column header="{{'Activation' | translate}}">
+      <p-column header="{{'Activation' | translate}}" [style]="{'width':'20%'}">
         <ng-template let-user="rowData" pTemplate="body">
           <button type="button" pButton (click)="desactivate(user)" icon="fa-search" class="btn btn-success" *ngIf="!user.isActive">{{'Compte active' | translate}}</button>
           <button type="button" pButton (click)="activate(user)" icon="fa-search" class="btn btn-danger" *ngIf="user.isActive">{{'Compte desactive' | translate}}</button>
         </ng-template>
       </p-column>
-      <p-column header="{{'Supprimer' | translate}}">
+      <p-column header="{{'Supprimer' | translate}}" [style]="{'width':'10%'}">
         <ng-template let-user="rowData" pTemplate="body">
           <button type="button" pButton (click)="delete(user)" icon="fa-search" class="btn btn-danger">X</button>
         </ng-template>
