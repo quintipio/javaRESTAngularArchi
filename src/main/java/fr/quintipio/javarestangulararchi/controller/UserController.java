@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -191,8 +192,12 @@ public class UserController extends AbstractEntity {
      * @return true si déjà existant
      */
     @GetMapping(value = "/utilisateur/checkSso")
-    public ResponseEntity<Boolean> checkSsoUserExist(@RequestParam("id") Long id, @RequestParam("sso") String recherche) {
-        return ResponseEntity.ok(userService.checkSsoUserExist(recherche,id));
+    public ResponseEntity<Boolean> checkSsoUserExist(@RequestParam("id") String id, @RequestParam("sso") String recherche) {
+        Long idNumber = null;
+        if(id!= null && !id.equals("null")) {
+            idNumber = Long.parseLong(id);
+        }
+        return ResponseEntity.ok(userService.checkSsoUserExist(recherche,idNumber));
     }
 
     /**
