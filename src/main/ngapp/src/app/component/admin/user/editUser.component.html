@@ -1,6 +1,7 @@
 <article>
   <h2 *ngIf="isModif">{{user.sso}}</h2>
   <h2 *ngIf="!isModif">{{'CreerUser' | translate}}</h2>
+
   <form name="formSaveCompte" (ngSubmit)="f.form.valid && save()" #f="ngForm">
     <div class="form-group row decale">
       <label for="inputLibelleSso" class="col-sm-3 col-form-label ">{{'Sso' | translate}} : </label>
@@ -19,10 +20,10 @@
           <small class="form-text text-danger" *ngIf="sso.errors.pattern">
             {{'ErreurPatternSso' | translate}}
           </small>
-          <small class="form-text text-danger" *ngIf="isSsoExist">
-            {{'SsoExist' | translate}}
-          </small>
         </div>
+        <small class="form-text text-danger" *ngIf="isSsoExist">
+          {{'SsoExist' | translate}}
+        </small>
       </div>
     </div>
 
@@ -86,14 +87,14 @@
     <div class="form-group row decale">
       <label for="inputLibelleProfils" class="col-sm-3 col-form-label">{{'Profil' | translate}} : </label>
       <div class="col-xs-9">
-        <angular2-multiselect id="inputLibelleProfils" [data]="dropdownListProfils"
-                              [(ngModel)]="selectedItemsProfils" [ngModelOptions]="{standalone: true}"
-                              (onSelect)="onItemSelect($event)"
-                              (onDeSelect)="OnItemDeSelect($event)"
-                              [settings]="dropdownSettings"
-                              style="width: 200px!important;" class="largeMultiSelect"></angular2-multiselect>
-        <div *ngIf="f.submitted && mail.dirty && mail.invalid">
-          <small class="form-text text-danger" *ngIf="user.userProfiles != null">
+        <p-multiSelect id="inputLibelleProfils"
+                       [options]="dropdownListProfils"
+                       [(ngModel)]="user.userProfiles"
+                       optionLabel="libelle"
+                       [ngModelOptions]="{standalone: true}">
+        </p-multiSelect>
+        <div *ngIf="f.submitted">
+          <small class="form-text text-danger" *ngIf="user.userProfiles === undefined">
             {{'Ce champ est requis' | translate}}
           </small>
         </div>
@@ -104,7 +105,7 @@
     <div class="form-group row decale" *ngIf="!isModif">
       <label for="inputPassword" class="col-sm-3 col-form-label">{{'Mot de passe' | translate}} : </label>
       <div class="col-xs-9">
-        <input id="inputPassword" name="inputPassword" class="form-control" [(ngModel)]="user.motDePasse" type="password" required minlength="6" maxlength="100" #password="ngModel" />
+        <input id="inputPassword" name="inputPassword" class="form-control" [(ngModel)]="user.motDePasse" type="password" required minlength="6" maxlength="100" #password="ngModel" (change)="checkPasswordCreate()" />
         <password-strength-bar [passwordToCheck]="user.motDePasse"></password-strength-bar>
         <div *ngIf="f.submitted && password.dirty && password.invalid">
           <small class="form-text text-danger" *ngIf="password.errors.required">
@@ -120,21 +121,54 @@
       </div>
     </div>
 
-    <div class="form-group  row decale" *ngIf="!isModif">
-      <input id="checkActive" name="checkActive" type="checkbox" [disabled]="loading" [(ngModel)]="user.isActive"/>
-      <label for="checkActive">{{'Activer le compte' | translate}}</label>
+    <div class="form-group row decale" *ngIf="!isModif">
+      <label for="newPassCreateConfirm" class="col-sm-3 col-form-label">{{'Confirmation de votre mot de passe' | translate}} : </label>
+      <div class="col-xs-9">
+        <input id="newPassCreateConfirm" name="newPassCreateConfirm" class="form-control" [(ngModel)]="newMdpConfirm" required minlength="6" maxlength="100" type="password" #newPassCreateConfirm="ngModel" (change)="checkPasswordCreate()" />
+        <div *ngIf="f.submitted && newPassCreateConfirm.dirty && newPassCreateConfirm.invalid">
+          <small class="form-text text-danger" *ngIf="newPassCreateConfirm.errors.required">
+            {{'Ce champ est requis' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="newPassCreateConfirm.errors.minlength">
+            {{'Ce champ est trop court' | translate}}
+          </small>
+          <small class="form-text text-danger" *ngIf="newPassCreateConfirm.errors.maxlength">
+            {{'Ce champ est trop long' | translate}}
+          </small>
+        </div>
+        <small class="form-text text-danger" *ngIf="errorMdpCreate">
+          {{'Les mots de passe ne correpsondent pas' | translate}}
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group  row decale center text" *ngIf="!isModif">
+      <div class="col-sm-12 center-text">
+        <input id="checkActive" name="checkActive" type="checkbox" [disabled]="loading" [(ngModel)]="user.actif"/>
+        <label for="checkActive">{{'Activer le compte' | translate}}</label>
+      </div>
     </div>
 
     <div class="form-group  row decale">
       <label for="inputLangue" class="col-sm-3 col-form-label">{{'Langue' | translate}} : </label>
-      <select id="inputLangue" [(ngModel)]="user.langue" [ngModelOptions]="{standalone: true}" class="btn">
-        <option *ngFor="let l of langues" [ngValue]="l.value">{{l.display}}</option>
-      </select>
+      <div class="col-xs-9">
+        <select id="inputLangue" name="inputLangue" [(ngModel)]="user.langue" class="btn" required #langueInput="ngModel">
+          <option *ngFor="let l of langues" [ngValue]="l.value" selected>{{l.display}}</option>
+        </select>
+        <div *ngIf="f.submitted && langueInput.dirty && langueInput.invalid">
+          <small class="form-text text-danger" *ngIf="langueInput.errors.required">
+            {{'Ce champ est requis' | translate}}
+          </small>
+        </div>
+      </div>
+
+
     </div>
 
     <div class="form-group row center-text">
       <div class="col-sm-12">
-        <button class="btn btn-primary" [disabled]="!f.form.valid">{{'Sauvegarder' | translate}}</button>
+        <button class="btn btn-primary" [disabled]="!f.form.valid" >{{'Sauvegarder' | translate}}</button>
+        <button type="button" class="btn btn-info" (click)="goBack()" *ngIf="!isModif">{{'Retour' | translate}}</button>
       </div>
     </div>
 
@@ -142,6 +176,10 @@
   <form name="formMajPassword" (ngSubmit)="fb.form.valid && savePassword()" #fb="ngForm" *ngIf="isModif">
 
     <h2>{{'Nouveau mot de passe' | translate}}</h2>
+
+    <div class="alert alert-info center-text" *ngIf="isMdpChange">
+      {{'Changements effectue' | translate}}
+    </div>
 
     <div class="form-group row decale">
       <label for="inputNewPass" class="col-sm-3 col-form-label">{{'Nouveau mot de passe' | translate}} :</label>
@@ -176,15 +214,15 @@
           <small class="form-text text-danger" *ngIf="newPassconfrmNgModel.errors.maxlength">
             {{'Ce champ est trop long' | translate}}
           </small>
-          <small class="form-text text-danger" *ngIf="errorMdp">
-            {{'Les mots de passe ne correpsondent pas' | translate}}
-          </small>
         </div>
+        <small class="form-text text-danger" *ngIf="errorMdp">
+          {{'Les mots de passe ne correpsondent pas' | translate}}
+        </small>
       </div>
     </div>
 
-    <div class="form-group row center-text">
-      <div class="col-sm-12">
+    <div class="form-group row">
+      <div class="col-sm-12  center-text">
         <button class="btn btn-primary" [disabled]="!fb.form.valid || errorMdp">{{'Changer le mot de passe' | translate}}</button>
         <button class="btn btn-info" (click)="goBack()">{{'Retour' | translate}}</button>
 

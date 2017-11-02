@@ -75,6 +75,6 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
      * Efface tout les utilisateurs n'ayant pas été activé (activé=false & link activation != null) après trois jours(date de creation)
      * @param createdDate la date d'il y a trois jours
      */
-    void deleteUtilisateursByIsActiveIsFalseAndLinkActivationIsNotNullAndCreatedDateIsBefore(Date createdDate);
+    void deleteUtilisateursByActifIsFalseAndLinkActivationIsNotNullAndCreatedDateIsBefore(Date createdDate);
 
 }

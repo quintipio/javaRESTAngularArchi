@@ -1,8 +1,11 @@
 package fr.quintipio.javarestangulararchi.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -14,7 +17,9 @@ public class Profil {
     Long id;
 
     @Column(name="libelle", length=100,  unique=true, nullable=false)
-    @Size(min = 2, max = 100)
+    @Size(min = 2, max = 100,message = "erreur taille libelle")
+    @NotEmpty(message = "erreur libelle vide")
+    @NotNull(message = "erreur libelle null")
     String libelle;
 
     public Profil() {

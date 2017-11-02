@@ -37,11 +37,11 @@ export class GererUserComponent implements OnInit {
 
   activate(user  : User) {
     this.adminService.activerUser(user);
-    user.isActive = !user.isActive;
+    user.actif = !user.actif;
   }
 
   desactivate(user : User) {
     this.adminService.desactiverUser(user);
-    user.isActive = !user.isActive;
+    user.actif = !user.actif;
   }
 }

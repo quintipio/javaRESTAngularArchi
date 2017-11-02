@@ -20,8 +20,8 @@
       </p-column>
       <p-column header="{{'Activation' | translate}}" [style]="{'width':'20%'}">
         <ng-template let-user="rowData" pTemplate="body">
-          <button type="button" pButton (click)="desactivate(user)" icon="fa-search" class="btn btn-success" *ngIf="!user.isActive">{{'Compte active' | translate}}</button>
-          <button type="button" pButton (click)="activate(user)" icon="fa-search" class="btn btn-danger" *ngIf="user.isActive">{{'Compte desactive' | translate}}</button>
+          <button type="button" pButton (click)="desactivate(user)" icon="fa-search" class="btn btn-success" *ngIf="user.actif">{{'Compte active' | translate}}</button>
+          <button type="button" pButton (click)="activate(user)" icon="fa-search" class="btn btn-danger" *ngIf="!user.actif">{{'Compte desactive' | translate}}</button>
         </ng-template>
       </p-column>
       <p-column header="{{'Supprimer' | translate}}" [style]="{'width':'10%'}">

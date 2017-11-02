@@ -93,7 +93,7 @@ public class PublicController {
     public ResponseEntity reinitMdp(@RequestParam("link") String link,@RequestParam("newmdp") String newmdp) {
         log.info("Reinitialisation du mot de passe pour "+link);
         Utilisateur user = userService.findByLinkResetPassword(link);
-        if(user != null && user.getActive()) {
+        if(user != null && user.getActif()) {
             String encodeMdp = passwordEncoder.encode(newmdp);
             user.setMotDePasse(encodeMdp);
             user.setLinkResetPassword(null);
@@ -117,7 +117,7 @@ public class PublicController {
         Utilisateur user = userService.findByLinkActivation(link);
         log.info("Activation user : "+link);
         if(user != null) {
-            user.setActive(true);
+            user.setActif(true);
             user.setLinkActivation(null);
             user.setLastModifiedDate(new Date());
             userService.updateUser(user);

@@ -20,6 +20,9 @@ export class ModifCompteComponent implements OnInit{
   newPassconfrm:string;
   errorMdp:boolean;
 
+  isMdpChange:boolean;
+  isDataChange:boolean;
+
   constructor(private standardService : StandardService,
               private userService : UserService,
               private router : Router,
@@ -31,6 +34,7 @@ export class ModifCompteComponent implements OnInit{
 
   saveInfoProfil() : void {
     this.standardService.updateData(this.utilisateur).then(res => this.utilisateur = res);
+    this.isDataChange = true;
   }
 
   savePassword(): void {
@@ -39,6 +43,8 @@ export class ModifCompteComponent implements OnInit{
       this.standardService.updatePassword(this.oldPass,this.newPass).then(res => {
         if(!res) {
           this.error = this._translate.instant('Ancien mdp incorrect');
+        } else {
+          this.isMdpChange = true;
         }
       });
     }

@@ -8,6 +8,6 @@ export class User {
   nom:string;
   prenom:string;
   userProfiles:Profil[];
-  isActive:boolean;
+  actif:boolean;
   langue:string;
 }

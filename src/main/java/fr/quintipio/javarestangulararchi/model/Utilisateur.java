@@ -20,10 +20,10 @@ public class Utilisateur extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @NotNull
-    @NotEmpty
-    @Size(min = 3, max = 100)
-    @Pattern(regexp = Constantes.LOGIN_REGEX)
+    @NotNull(message = "erreur sso null")
+    @NotEmpty(message = "erreur sso vide")
+    @Size(min = 3, max = 100,message = "erreur taille sso")
+    @Pattern(regexp = Constantes.LOGIN_REGEX,message ="erreur pattern sso")
     String sso;
 
     @JsonIgnore
@@ -34,47 +34,45 @@ public class Utilisateur extends AbstractEntity {
     @Column(name="linkResetPassword", unique=true)
     String linkResetPassword;
 
-    @JsonIgnore
-    @NotNull
     @Column(name="active",nullable = false)
-    Boolean isActive;
+    Boolean actif;
 
-    @NotEmpty
-    @NotNull
+    @NotEmpty(message = "erreur email vide")
+    @NotNull(message = "erreur email null")
     @Column(name="email",nullable = false)
-    @Size(max = 100, min = 5)
-    @Email
+    @Size(max = 100, min = 5,message = "erreur taille email")
+    @Email(message = "erreur pattern email")
     String email;
 
-    @NotEmpty
+    @NotEmpty(message = "erreur mot de passe vide")
     @Column(name="motdepasse", nullable=false)
-    @NotNull
-    @Size(max = 100, min = 6)
+    @NotNull(message = "erreur mot de passe null")
+    @Size(max = 100, min = 6, message = "Erreur taille mot de passe")
     String motDePasse;
 
-    @NotEmpty
+    @NotEmpty(message = "erreur prenom vide")
     @Column(name="prenom", nullable=false)
-    @NotNull
-    @Size(min = 2, max = 100)
+    @NotNull(message = "erreur prenom null")
+    @Size(min = 2, max = 100,message = "erreur taille prenom")
     private String prenom;
 
 
-    @NotEmpty
+    @NotEmpty(message = "erreur nom vide")
     @Column(name="nom", nullable=false)
-    @NotNull
-    @Size(min = 2, max = 100)
+    @NotNull(message = "erreur nom null")
+    @Size(min = 2, max = 100,message = "erreur taille nom")
     private String nom;
 
-    @NotEmpty
+    @NotEmpty(message = "erreur profils vide")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "UTILISATEUR_PROFIL",
             joinColumns = { @JoinColumn(name = "UTILISATEUR_ID") },
             inverseJoinColumns = { @JoinColumn(name = "PROFIL_ID") })
     Set<Profil> userProfiles = new HashSet<>();
 
-    @NotNull
-    @NotEmpty
-    @Size(min=2, max = 6)
+    @NotNull(message = "erreur langue null")
+    @NotEmpty(message = "erreur langue vide")
+    @Size(min=2, max = 6,message = "erreur taille langue")
     @Column(name = "langue", nullable = false)
     private String langue;
 
@@ -115,6 +113,14 @@ public class Utilisateur extends AbstractEntity {
         this.motDePasse = motDePasse;
     }
 
+    public Boolean getActif() {
+        return actif;
+    }
+
+    public void setActif(Boolean actif) {
+        this.actif = actif;
+    }
+    
     public String getPrenom() {
         return prenom;
     }
@@ -149,13 +155,6 @@ public class Utilisateur extends AbstractEntity {
     }
 
 
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
 
 
     public String getLangue() {
@@ -200,7 +199,7 @@ public class Utilisateur extends AbstractEntity {
                 ", sso='" + sso + '\'' +
                 ", linkActivation='" + linkActivation + '\'' +
                 ", linkResetPassword='" + linkResetPassword + '\'' +
-                ", isActive=" + isActive +
+                ", actif=" + actif +
                 ", email='" + email + '\'' +
                 ", motDePasse='" + motDePasse + '\'' +
                 ", prenom='" + prenom + '\'' +

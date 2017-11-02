@@ -158,7 +158,7 @@ public class UserServiceImpl implements UserService {
         cal.set(Calendar.MINUTE,0);
         cal.set(Calendar.SECOND,0);
         cal.set(Calendar.MILLISECOND,0);
-        utilisateurRepository.deleteUtilisateursByIsActiveIsFalseAndLinkActivationIsNotNullAndCreatedDateIsBefore( cal.getTime());
+        utilisateurRepository.deleteUtilisateursByActifIsFalseAndLinkActivationIsNotNullAndCreatedDateIsBefore( cal.getTime());
     }
 
 

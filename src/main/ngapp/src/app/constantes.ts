@@ -9,5 +9,10 @@ export const LANGUES_DISPO = [
   {display : 'English', value: 'en'},
   {display : 'Français', value: 'fr'},
 ];
+
+export const PROFILS_DISPO = [
+  { id: 1, libelle : 'STANDARD_USER'},
+  { id: 2, libelle : 'ADMIN_USER'},
+];
 export const LANGUE_DEFAUT = 'fr';
 export const PARAM_LANGUE_SERVER = "lang";

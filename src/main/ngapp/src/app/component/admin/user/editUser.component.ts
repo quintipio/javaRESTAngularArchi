@@ -5,7 +5,7 @@ import {User} from "../../../model/User";
 import { Location } from '@angular/common';
 import {Profil} from "../../../model/Profil";
 import {ProfilService} from "../../../service/ProfilService";
-import {LANGUES_DISPO} from "../../../constantes";
+import {LANGUES_DISPO, PROFILS_DISPO} from "../../../constantes";
 
 @Component({
   selector:'edit-user',
@@ -18,16 +18,16 @@ export class EditUserComponent implements OnInit {
   isModif: boolean;
   isSsoExist: boolean;
 
-  dropdownListProfils = [];
-  selectedItemsProfils = [];
-  dropdownSettings = {};
+  dropdownListProfils : Profil[] = PROFILS_DISPO;
 
   langues= [];
-
 
   newMdp: string;
   newMdpConfirm:string;
   errorMdp: boolean;
+  errorMdpCreate: boolean;
+
+  isMdpChange: boolean;
 
   constructor(private route: ActivatedRoute,
               private adminService:AdminService,
@@ -39,58 +39,17 @@ export class EditUserComponent implements OnInit {
     this.route.queryParams.subscribe(params => {this.user.id = +params['id'] || null});
     this.isModif = this.user.id != null;
 
-    this.profilService.getProfils().then(res => this.createDropdownProfils(res));
-
-    this.dropdownSettings = {
-      singleSelection: false,
-      text:"Select",
-      selectAllText:'Select All',
-      unSelectAllText:'UnSelect All',
-      enableSearchFilter: true
-    };
+    this.profilService.getProfils().then(res => this.dropdownListProfils = res);
 
     this.langues = LANGUES_DISPO;
 
     if(this.isModif) {
-      this.adminService.getUser(this.user.id).subscribe( user => this.loadUser(user));
-
+      this.adminService.getUser(this.user.id).subscribe( user => this.user = user);
     }
-  }
-
-  loadUser(user:User) {
-    this.user = user;
-    this.selectedItemsProfils = this.user.userProfiles;
-    var i;
-    for(i = 0; i < this.selectedItemsProfils.length; i++){
-      this.selectedItemsProfils[i].itemName = this.selectedItemsProfils[i]['libelle'];
-      delete this.selectedItemsProfils[i].libelle;
+    else {
+      this.user.actif = false;
+      this.user.langue = LANGUES_DISPO[0].value;
     }
-  }
-
-  createDropdownProfils(profils: Profil[]) {
-    this.dropdownListProfils = profils;
-    var i;
-    for(i = 0; i < this.dropdownListProfils.length; i++){
-      this.dropdownListProfils[i].itemName = this.dropdownListProfils[i]['libelle'];
-      delete this.dropdownListProfils[i].libelle;
-    }
-  }
-
-  onItemSelect(item:any){
-    this.changeUserProfiles();
-  }
-  OnItemDeSelect(item:any){
-    this.changeUserProfiles();
-  }
-
-  changeUserProfiles(){
-    var listTmp = this.selectedItemsProfils;
-    var i;
-    for(i = 0; i < listTmp.length; i++){
-      listTmp[i].libelle = listTmp[i]['itemName'];
-      delete listTmp[i].itemName;
-    }
-    this.user.userProfiles = listTmp;
   }
 
   goBack(): void {
@@ -98,16 +57,27 @@ export class EditUserComponent implements OnInit {
   }
 
   save() {
-    if (this.isModif) {
-      this.adminService.updateUser(this.user)
-    } else {
-      this.adminService.createUser(this.user)
+    if(this.validate()) {
+      if (this.isModif) {
+        this.adminService.updateUser(this.user);
+      } else {
+          this.adminService.createUser(this.user);
+      }
+      this.goBack();
     }
-    this.goBack();
   }
 
   checkSso() {
     this.adminService.checkSso(this.user.sso,this.user.id).subscribe(res => this.isSsoExist = res);
+  }
+
+  validate() : boolean {
+    if(!this.isModif) {
+      this.checkPasswordCreate();
+      return !this.errorMdpCreate && !this.isSsoExist && this.user.userProfiles != undefined;
+    } else {
+      return !this.isSsoExist && this.user.userProfiles != undefined;
+    }
   }
 
 
@@ -120,11 +90,16 @@ export class EditUserComponent implements OnInit {
     this.checkPassword();
     if(!this.errorMdp) {
       this.adminService.changeMdp(this.newMdp,this.user.id);
+      this.isMdpChange = true;
     }
   }
 
   checkPassword() {
     this.errorMdp = (this.newMdp !== this.newMdpConfirm);
+  }
+
+  checkPasswordCreate() {
+    this.errorMdpCreate = (this.user.motDePasse !== this.newMdpConfirm);
   }
 
 }

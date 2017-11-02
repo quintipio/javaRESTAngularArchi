@@ -36,10 +36,9 @@ import {TranslatePipe} from './translate/translate.pipe';
 import {TRANSLATION_PROVIDERS} from './translate/translation';
 import {TranslateService} from './translate/translate.service';
 import {GererUserComponent} from "./component/admin/user/gererUser.component";
-import {DataTableModule} from "primeng/primeng";
+import {DataTableModule, MultiSelectModule} from "primeng/primeng";
 import {SearchUserComponent} from "./component/admin/user/searchUser.component";
 import {EditUserComponent} from "./component/admin/user/editUser.component";
-import {AngularMultiSelectModule} from "angular2-multiselect-dropdown";
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -59,7 +58,7 @@ export function authHttpServiceFactory(http: Http) {
     HttpModule,
     AppRoutingModule,
     DataTableModule,
-    AngularMultiSelectModule,
+    MultiSelectModule,
   ],
   declarations: [
     TranslatePipe,

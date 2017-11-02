@@ -9,6 +9,7 @@ import {User} from "../model/User";
 @Injectable()
 export class AdminService {
   private adminurl = '/admin';
+  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: AuthHttp, private _translate : TranslateService) { }
 
@@ -37,7 +38,7 @@ export class AdminService {
 
   checkSso(sso:string,id:number) : Observable<boolean> {
     const url = this.adminurl+`/utilisateur/checkSso?id=${id}&sso=${sso}`;
-    return this.http.get(url).map(res => res.text().toLocaleUpperCase()=="TRUE");
+    return this.http.get(url).map(res => res.text().toLocaleUpperCase()==="TRUE");
   }
 
   getUser(id:number) :Observable<User>{
@@ -45,12 +46,18 @@ export class AdminService {
     return this.http.get(url).map((res:Response) => res.json() as User);
   }
 
-  updateUser(user:User) {
-    return ;
+  updateUser(user:User): Promise<User> {
+    return this.http
+      .put(this.adminurl+`/utilisateur`, JSON.stringify(user))
+      .toPromise()
+      .then(res => res.json() as User);
   }
 
-  createUser(user: User) {
-    return ;
+  createUser(user: User): Promise<User> {
+    return this.http
+      .post(this.adminurl+`/utilisateur`, JSON.stringify(user))
+      .toPromise()
+      .then(res => res.json() as User);
   }
 
   activerUser(user : User) {

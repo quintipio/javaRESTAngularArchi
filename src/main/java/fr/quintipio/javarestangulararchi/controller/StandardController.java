@@ -56,7 +56,7 @@ public class StandardController {
             user.setId(0L);
             user.setMotDePasse(null);
             user.setUserProfiles(null);
-            user.setActive(null);
+            user.setActif(null);
             user.setLinkActivation(null);
             return ResponseEntity.ok(user);
         }

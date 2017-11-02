@@ -27,7 +27,7 @@ public abstract class AbstractEntity implements Serializable {
     @Version
     @Column(name = "version",nullable = false)
     @JsonIgnore
-    private Integer version;
+    private Date version;
 
     public Date getCreatedDate() {
         return createdDate;
@@ -45,11 +45,11 @@ public abstract class AbstractEntity implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public Integer getVersion() {
+    public Date getVersion() {
         return version;
     }
 
-    public void setVersion(Integer version) {
+    public void setVersion(Date version) {
         this.version = version;
     }
 }

@@ -3,6 +3,10 @@
 
     <h2 class="center-text">{{'Vos informations' | translate}}</h2>
 
+    <div class="alert alert-info center-text" *ngIf="isDataChange">
+      {{'Changements effectue' | translate}}
+    </div>
+
     <div class="form-group row decale">
       <label for="inputLibelleNom" class="col-sm-3 col-form-label ">{{'Nom' | translate}} : </label>
       <div class="col-xs-9">
@@ -72,6 +76,10 @@
   <form name="formMajMdp" (ngSubmit)="fb.form.valid && savePassword()" #fb="ngForm">
     <h2 class="center-text">{{'Changer votre mot de passe' | translate}}</h2>
 
+    <div class="alert alert-info center-text" *ngIf="isMdpChange">
+      {{'Changements effectue' | translate}}
+    </div>
+
     <div *ngIf="error" class="alert alert-danger">{{error}}</div>
 
     <div class="form-group row decale">
@@ -125,10 +133,10 @@
           <small class="form-text text-danger" *ngIf="newPassconfrmNgModel.errors.maxlength">
             {{'Ce champ est trop long' | translate}}
           </small>
-          <small class="form-text text-danger" *ngIf="errorMdp">
-            {{'Les mots de passe ne correpsondent pas' | translate}}
-          </small>
         </div>
+        <small class="form-text text-danger" *ngIf="errorMdp">
+          {{'Les mots de passe ne correpsondent pas' | translate}}
+        </small>
       </div>
     </div>
 

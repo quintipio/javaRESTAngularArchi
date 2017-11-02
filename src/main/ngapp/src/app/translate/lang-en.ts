@@ -66,7 +66,7 @@ export const LANG_EN_TRANS = {
   'Mot de passe oublie': 'Forgot password',
   'Erreur lien activation': 'Error on your activation link',
   'ErreurPatternSso' : 'This field must be write with letters or numbers',
-  'SsoExist' : 'Cet identifiant existe déjà',
+  'SsoExist' : 'This login already exist',
 
   //Boutons
   'Deconnexion': 'Disconnect',
@@ -94,4 +94,5 @@ export const LANG_EN_TRANS = {
 
   //avertissements
   'Avertissement suprression': 'Warning ! This action will delete your account and all your data; Continue ?',
+  'Changements effectue' : 'Changes made '
 };

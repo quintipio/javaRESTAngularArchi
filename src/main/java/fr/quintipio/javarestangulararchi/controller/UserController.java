@@ -104,17 +104,22 @@ public class UserController extends AbstractEntity {
      */
     @PostMapping(value = "/utilisateur")
     public ResponseEntity<Utilisateur> createUser(@Valid @RequestBody Utilisateur user) {
+        if(user.getActif() == null) {
+            user.setActif(false);
+        }
         if(!userService.checkSsoUserExist(user.getSso(),null)) {
             user.setMotDePasse(passwordEncoder.encode(user.getMotDePasse()));
-            if(!user.getActive()) {
+            if(!user.getActif()) {
                 user.setLinkActivation(UUID.randomUUID().toString());
             }
+            user.setId(null);
+            user.setCreatedDate(new Date());
             user = this.userService.saveUser(user);
 
-            if(!user.getActive()) {
+            if(!user.getActif()) {
                 if(!mailService.sendEmailFromTemplate(user,Constantes.TEMPLATE_ACTIVATION,messageByLocaleService.getMessage("mail.titre.actverCompte"))) {
-                    this.userService.deleteUser(user.getId());
                     log.warn("Echec de l'envoi du mail à : "+user);
+                    this.userService.deleteUser(user.getId());
                     return new ResponseEntity(HttpStatus.BAD_REQUEST);
                 }
             }
@@ -178,7 +183,7 @@ public class UserController extends AbstractEntity {
      */
     private void changerActivationUser(boolean newEtat, long id) {
         Utilisateur user = userService.findById(id);
-        user.setActive(newEtat);
+        user.setActif(newEtat);
         user.setLinkActivation(null);
         user.setLastModifiedDate(new Date());
         log.info(((newEtat)?"Activation de ":"Désactivation de ")+user);

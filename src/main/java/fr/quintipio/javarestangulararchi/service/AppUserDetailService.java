@@ -39,7 +39,7 @@ public class AppUserDetailService implements UserDetailsService  {
             throw new UsernameNotFoundException(String.format(messageByLocaleService.getMessage("error.utilisateurInconnu"), s));
         }
 
-        if(!user.getActive()) {
+        if(!user.getActif()) {
             throw new UsernameNotFoundException(String.format(messageByLocaleService.getMessage("error.utilisateurDesactive"), s));
         }
 
@@ -49,7 +49,7 @@ public class AppUserDetailService implements UserDetailsService  {
         });
 
         UserDetails userDetails = new org.springframework.security.core.userdetails.
-                User(user.getSso(), user.getMotDePasse(),user.getActive(),true,true,true, authorities);
+                User(user.getSso(), user.getMotDePasse(),user.getActif(),true,true,true, authorities);
 
         return userDetails;
     }
