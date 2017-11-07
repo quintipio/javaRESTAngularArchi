@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -44,11 +43,10 @@ public class ProfilControllerTest {
 
     @Test
     public void getAllProfils() throws Exception {
-        MvcResult result = mockMvc.perform(get("/admin/profil")
+         mockMvc.perform(get("/admin/profil")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andReturn();
-        System.out.println(result.getResponse().getContentAsString());
     }
 }
