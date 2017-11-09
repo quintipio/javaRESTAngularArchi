@@ -5,10 +5,11 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import {AuthHttp} from 'angular2-jwt';
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class ProfilService {
-  private profilurl = 'admin/profil';
+  private profilurl = environment.apiAdress + '/admin/profil';
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: AuthHttp) { }

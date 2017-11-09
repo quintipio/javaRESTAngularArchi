@@ -2,11 +2,12 @@ import { Injectable }    from '@angular/core';
 import {  Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {TranslateService} from '../translate/translate.service';
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class PublicService {
 
-  private publicurl = '/public';
+  private publicurl = environment.apiAdress + '/public';
 
   constructor(private http: Http,
               private _translate : TranslateService) { }

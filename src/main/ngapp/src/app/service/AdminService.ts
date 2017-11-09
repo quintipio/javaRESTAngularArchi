@@ -5,10 +5,11 @@ import 'rxjs/add/operator/map';
 import {TranslateService} from '../translate/translate.service';
 import {Observable} from "rxjs/Observable";
 import {User} from "../model/User";
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class AdminService {
-  private adminurl = '/admin';
+  private adminurl = environment.apiAdress + '/admin';
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: AuthHttp, private _translate : TranslateService) { }
