@@ -1,22 +1,22 @@
 {
   "/api": {
-    "target": "http://localhost:8280",
+    "target": "http://localhost:8080",
     "secure": false
   },
   "/admin": {
-    "target": "http://localhost:8280",
+    "target": "http://localhost:8080",
     "secure": false
   }
  ,"/standard": {
-  "target": "http://localhost:8280",
+  "target": "http://localhost:8080",
   "secure": false
   },
   "/public": {
-    "target": "http://localhost:8280",
+    "target": "http://localhost:8080",
     "secure": false
   },
   "/oauth": {
-    "target": "http://localhost:8280",
+    "target": "http://localhost:8080",
     "secure": false
   }
 }
