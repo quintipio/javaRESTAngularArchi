@@ -1,0 +1,1 @@
+./mvnw.cmd package -Dmaven.test.skip=true
