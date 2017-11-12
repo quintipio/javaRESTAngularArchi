@@ -1,0 +1,36 @@
+[ "$(whoami)" != "root" ] && exec sudo -- "$0" "$@"
+
+sudo apt-get install apache2
+sudo apt-get install openjdk-8-jdk
+sudo apt-get install docker
+sudo apt-get install git
+sudo apt-get install maven
+sudo apt-get install nodejs npm
+
+git clone https://github.com/quintipio/javaRESTAngularArchi
+
+cd javaRESTAngularArchi
+mvn package -Dmaven.test.skip=true
+
+cd src/main/ngapp
+npm i -D uglifyjs-webpack-plugin@beta
+npm install
+
+docker pull mariadb
+docker run --name mariadb -e MYSQL_ROOT_PASSWORD=root -d mariadb
+docker start mariadb
+docker exec mariadb mysql -u root -p root
+docker exec mariadb CREATE DATABASE IF NOT EXISTS javarestangularapp
+
+cd ../../..
+
+docker build --tag backend .
+docker run --name backendApp backend
+
+cd src/main/ngapp
+docker build --tag frontend .
+docker run --name frontendApp frontend
+
+
+
+
