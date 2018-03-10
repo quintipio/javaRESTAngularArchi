@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAmount;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service("utilisateurService")
 @Transactional
@@ -28,7 +26,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Utilisateur findById(Long id) {
-        return utilisateurRepository.findOne(id);
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findById(id);
+        return utilisateur.isPresent()?utilisateur.get():null;
     }
 
     /**
@@ -77,7 +76,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void deleteUser(Long id) {
-        utilisateurRepository.delete(id);
+        utilisateurRepository.deleteById(id);
     }
 
     /**

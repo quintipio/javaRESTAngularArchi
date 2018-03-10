@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("profilService")
 @Transactional
@@ -23,7 +24,8 @@ public class ProfilServiceImpl implements ProfilService {
      */
     @Override
     public Profil findById(Long id) {
-        return profilRepository.findOne(id);
+        Optional<Profil> profil = profilRepository.findById(id);
+        return profil.isPresent()?profil.get():null;
     }
 
     /**
@@ -59,7 +61,7 @@ public class ProfilServiceImpl implements ProfilService {
      */
     @Override
     public void delete(Long id) {
-        profilRepository.delete(id);
+        profilRepository.deleteById(id);
     }
 
     /**
