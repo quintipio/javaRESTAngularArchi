@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
@@ -15,7 +15,7 @@ import java.util.Locale;
  * Fichier de configuration pour l'internationalization
  */
 @Configuration
-public class LocaleConfiguration extends WebMvcConfigurerAdapter {
+public class LocaleConfiguration implements WebMvcConfigurer {
 
     @Bean
     public LocaleResolver localeResolver() {
